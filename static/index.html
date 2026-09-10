@@ -125,10 +125,10 @@
           <canvas id="gameCanvas" width="1000" height="600"></canvas>
           <div id="canvasOverlay">
             <div id="attackRatioPanel" class="floating">
-              <div class="ratio-head">Attack Ratio <span id="ratioVal">55%</span></div>
+              <div class="ratio-head">Attack Ratio <span id="ratioVal">55%</span> <small style="font-weight:400;opacity:.7">1/2 or Shift+wheel</small></div>
               <input type="range" id="ratioSlider" min="10" max="95" value="55">
               <div class="ratio-stats"><span id="ratioCommitted">–</span> committed • <span id="ratioRemain">–</span> remain</div>
-              <div class="ratio-keys">T/Y or wheel to adjust</div>
+              <div class="ratio-keys">T/Y or Shift+wheel • 2:1 bonus past advantage</div>
             </div>
             <div id="selectionRing" class="hidden"></div>
             <div id="victoryBar" class="hidden">
@@ -138,6 +138,18 @@
             </div>
             <div id="countdownOverlay" class="hidden"><span id="countdownText">5</span></div>
             <div id="notifications"></div>
+            <canvas id="minimap" width="160" height="96" title="Minimap — click to jump"></canvas>
+            <div id="perfOverlay" class="hidden"><span id="perfText">60 FPS</span></div>
+            <div id="terrainHint" class="floating hidden">🏔 Terrain view — hold SPACE</div>
+          </div>
+          <!-- Radial menu -->
+          <div id="radial" class="radial hidden">
+            <button data-radial="city" title="City 🏙️">🏙️</button>
+            <button data-radial="factory" title="Factory 🏭">🏭</button>
+            <button data-radial="port" title="Port ⚓">⚓</button>
+            <button data-radial="defense" title="Defense 🛡️">🛡️</button>
+            <button data-radial="silo" title="Silo 🚀">🚀</button>
+            <button data-radial="close" title="Close">✕</button>
           </div>
           <!-- Mobile action dock -->
           <div id="mobileDock">

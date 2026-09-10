@@ -10,8 +10,8 @@
       "x": 300,
       "y": 80,
       "neighbors": [
-        "uk",
-        "scandinavia"
+        "ireland",
+        "uk"
       ],
       "terrain": "arctic",
       "coastal": true,
@@ -24,11 +24,12 @@
       "y": 150,
       "neighbors": [
         "ireland",
-        "france",
-        "germany",
-        "scandinavia",
-        "iceland",
-        "benelux"
+        "benelux",
+        "germany_2",
+        "france_2",
+        "scandinavia_2",
+        "france_1",
+        "iceland"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -40,23 +41,65 @@
       "x": 360,
       "y": 155,
       "neighbors": [
-        "uk"
+        "uk",
+        "france_1",
+        "france_2",
+        "benelux",
+        "iceland"
       ],
       "terrain": "plains",
       "coastal": true,
       "isWater": false
     },
     {
-      "id": "france",
-      "name": "France",
-      "x": 400,
+      "id": "france_1",
+      "name": "France 1",
+      "x": 414,
       "y": 230,
       "neighbors": [
-        "uk",
-        "spain",
-        "germany",
-        "italy",
+        "france_2",
         "benelux",
+        "germany_2",
+        "italy_2",
+        "germany_1",
+        "italy_1",
+        "uk",
+        "ireland",
+        "spain_1"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "france_2",
+      "name": "France 2",
+      "x": 386,
+      "y": 230,
+      "neighbors": [
+        "france_1",
+        "benelux",
+        "germany_2",
+        "spain_1",
+        "italy_2",
+        "ireland",
+        "uk",
+        "spain_2"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "spain_1",
+      "name": "Spain 1",
+      "x": 364,
+      "y": 300,
+      "neighbors": [
+        "france_1",
+        "france_2",
+        "spain_2",
+        "portugal",
         "north_africa"
       ],
       "terrain": "plains",
@@ -64,14 +107,14 @@
       "isWater": false
     },
     {
-      "id": "spain",
-      "name": "Spain",
-      "x": 350,
+      "id": "spain_2",
+      "name": "Spain 2",
+      "x": 336,
       "y": 300,
       "neighbors": [
-        "france",
+        "france_2",
+        "spain_1",
         "portugal",
-        "germany",
         "north_africa"
       ],
       "terrain": "plains",
@@ -84,7 +127,9 @@
       "x": 330,
       "y": 310,
       "neighbors": [
-        "spain"
+        "spain_1",
+        "spain_2",
+        "north_africa"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -96,62 +141,111 @@
       "x": 420,
       "y": 190,
       "neighbors": [
+        "germany_2",
+        "france_1",
+        "germany_1",
+        "france_2",
         "uk",
-        "france",
-        "germany"
+        "poland_2",
+        "ireland"
       ],
       "terrain": "plains",
       "coastal": true,
       "isWater": false
     },
     {
-      "id": "germany",
-      "name": "Germany",
-      "x": 450,
+      "id": "germany_1",
+      "name": "Germany 1",
+      "x": 464,
       "y": 190,
       "neighbors": [
-        "uk",
-        "france",
+        "poland_2",
+        "germany_2",
         "benelux",
-        "poland",
-        "scandinavia",
-        "italy",
-        "balkans",
-        "spain"
+        "poland_1",
+        "baltics",
+        "france_1",
+        "italy_1",
+        "italy_2"
       ],
       "terrain": "plains",
       "coastal": false,
       "isWater": false
     },
     {
-      "id": "poland",
-      "name": "Poland",
-      "x": 500,
+      "id": "germany_2",
+      "name": "Germany 2",
+      "x": 436,
+      "y": 190,
+      "neighbors": [
+        "benelux",
+        "germany_1",
+        "france_1",
+        "poland_2",
+        "france_2",
+        "uk",
+        "italy_2"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "poland_1",
+      "name": "Poland 1",
+      "x": 514,
       "y": 180,
       "neighbors": [
-        "germany",
-        "scandinavia",
+        "poland_2",
+        "ukraine_2",
         "baltics",
-        "ukraine",
-        "balkans",
-        "russia"
+        "germany_1",
+        "ukraine_1",
+        "balkans_2"
       ],
       "terrain": "plains",
       "coastal": false,
       "isWater": false
     },
     {
-      "id": "scandinavia",
-      "name": "Scandinavia",
-      "x": 450,
+      "id": "poland_2",
+      "name": "Poland 2",
+      "x": 486,
+      "y": 180,
+      "neighbors": [
+        "germany_1",
+        "poland_1",
+        "baltics",
+        "germany_2",
+        "ukraine_2",
+        "benelux"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "scandinavia_1",
+      "name": "Scandinavia 1",
+      "x": 464,
       "y": 90,
       "neighbors": [
-        "iceland",
+        "scandinavia_2",
+        "baltics"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "scandinavia_2",
+      "name": "Scandinavia 2",
+      "x": 436,
+      "y": 90,
+      "neighbors": [
         "uk",
-        "germany",
-        "poland",
-        "baltics",
-        "russia"
+        "scandinavia_1",
+        "baltics"
       ],
       "terrain": "arctic",
       "coastal": true,
@@ -163,44 +257,84 @@
       "x": 500,
       "y": 140,
       "neighbors": [
-        "scandinavia",
-        "poland",
-        "russia",
-        "ukraine"
+        "poland_1",
+        "poland_2",
+        "germany_1",
+        "scandinavia_1",
+        "ukraine_2",
+        "scandinavia_2",
+        "russia_2"
       ],
       "terrain": "plains",
       "coastal": true,
       "isWater": false
     },
     {
-      "id": "italy",
-      "name": "Italy",
-      "x": 470,
+      "id": "italy_1",
+      "name": "Italy 1",
+      "x": 484,
       "y": 260,
       "neighbors": [
-        "france",
-        "germany",
-        "balkans",
-        "turkey",
-        "north_africa"
+        "balkans_2",
+        "italy_2",
+        "balkans_1",
+        "greece",
+        "germany_1",
+        "france_1"
       ],
       "terrain": "plains",
       "coastal": true,
       "isWater": false
     },
     {
-      "id": "balkans",
-      "name": "Balkans",
-      "x": 520,
+      "id": "italy_2",
+      "name": "Italy 2",
+      "x": 456,
+      "y": 260,
+      "neighbors": [
+        "italy_1",
+        "balkans_2",
+        "france_1",
+        "germany_1",
+        "germany_2",
+        "france_2",
+        "greece"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "balkans_1",
+      "name": "Balkans 1",
+      "x": 534,
       "y": 250,
       "neighbors": [
-        "italy",
-        "germany",
-        "poland",
-        "ukraine",
-        "turkey",
+        "balkans_2",
         "greece",
-        "north_africa"
+        "turkey",
+        "italy_1",
+        "ukraine_2",
+        "ukraine_1",
+        "levant"
+      ],
+      "terrain": "mountain",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "balkans_2",
+      "name": "Balkans 2",
+      "x": 506,
+      "y": 250,
+      "neighbors": [
+        "italy_1",
+        "balkans_1",
+        "greece",
+        "italy_2",
+        "ukraine_2",
+        "turkey",
+        "poland_1"
       ],
       "terrain": "mountain",
       "coastal": true,
@@ -212,24 +346,48 @@
       "x": 530,
       "y": 290,
       "neighbors": [
-        "balkans",
-        "turkey"
+        "balkans_1",
+        "turkey",
+        "balkans_2",
+        "italy_1",
+        "levant",
+        "italy_2",
+        "egypt"
       ],
       "terrain": "plains",
       "coastal": true,
       "isWater": false
     },
     {
-      "id": "ukraine",
-      "name": "Ukraine",
-      "x": 560,
+      "id": "ukraine_1",
+      "name": "Ukraine 1",
+      "x": 574,
       "y": 200,
       "neighbors": [
-        "poland",
-        "baltics",
-        "russia",
+        "poland_1",
+        "balkans_1",
+        "ukraine_2",
+        "russia_2",
+        "caucasus",
+        "turkey"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ukraine_2",
+      "name": "Ukraine 2",
+      "x": 546,
+      "y": 200,
+      "neighbors": [
+        "ukraine_1",
+        "poland_1",
+        "balkans_1",
+        "poland_2",
+        "balkans_2",
         "turkey",
-        "balkans",
+        "baltics",
         "caucasus"
       ],
       "terrain": "plains",
@@ -237,17 +395,26 @@
       "isWater": false
     },
     {
-      "id": "russia",
-      "name": "Western Russia",
-      "x": 600,
+      "id": "russia_1",
+      "name": "Western Russia 1",
+      "x": 614,
       "y": 130,
       "neighbors": [
-        "scandinavia",
+        "russia_2"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "russia_2",
+      "name": "Western Russia 2",
+      "x": 586,
+      "y": 130,
+      "neighbors": [
         "baltics",
-        "poland",
-        "ukraine",
-        "caucasus",
-        "turkey"
+        "ukraine_1",
+        "russia_1"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -259,9 +426,8 @@
       "x": 620,
       "y": 210,
       "neighbors": [
-        "russia",
-        "ukraine",
-        "turkey"
+        "ukraine_1",
+        "ukraine_2"
       ],
       "terrain": "mountain",
       "coastal": false,
@@ -273,13 +439,13 @@
       "x": 570,
       "y": 270,
       "neighbors": [
+        "balkans_1",
         "greece",
-        "balkans",
-        "ukraine",
-        "russia",
-        "caucasus",
         "levant",
-        "italy"
+        "balkans_2",
+        "ukraine_1",
+        "ukraine_2",
+        "egypt"
       ],
       "terrain": "mountain",
       "coastal": true,
@@ -291,6 +457,8 @@
       "x": 590,
       "y": 310,
       "neighbors": [
+        "balkans_1",
+        "greece",
         "turkey",
         "egypt"
       ],
@@ -304,6 +472,8 @@
       "x": 580,
       "y": 360,
       "neighbors": [
+        "greece",
+        "turkey",
         "levant"
       ],
       "terrain": "desert",
@@ -316,10 +486,9 @@
       "x": 380,
       "y": 360,
       "neighbors": [
-        "spain",
-        "france",
-        "italy",
-        "balkans"
+        "spain_1",
+        "spain_2",
+        "portugal"
       ],
       "terrain": "desert",
       "coastal": true,

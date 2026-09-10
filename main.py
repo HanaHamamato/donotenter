@@ -261,23 +261,27 @@ def game_tick(lobby):
     eco_speed = float(game["settings"].get("economicSpeed",1.0))
     # apply every tick but small amounts; we run 10 ticks per sec, so per tick add income/10
     dt = 0.1 * speed * eco_speed
-    # Troop and gold growth per territory
+    # Troop and gold growth per territory — parabolic near 42% of cap (OpenFront-style)
     for t in game["territories"].values():
         owner = t["ownerId"]
         if owner and owner in game["players"]:
-            pl = game["players"][owner]
             # troops
             city_lvl = t["buildings"].get("city",0)
             factory_lvl = t["buildings"].get("factory",0)
-            port_lvl = t["buildings"].get("port",0)
             base_troop = 0.32
             tr = base_troop + city_lvl*0.7
             if factory_lvl>0:
                 tr = (tr)*(1+0.45*factory_lvl)
-            # cap troops per territory to avoid infinite: 5000 + city*1000
             cap = 3500 + city_lvl*1300 + 500
             if t["troops"] < cap:
-                t["troops"] = min(cap, t["troops"] + tr*dt )
+                # growth peaks at 42% of cap
+                p = t["troops"]/cap if cap else 0
+                # parabolic factor: 1 - 4*(p-0.42)^2  (clamped)
+                growth_factor = 1 - 4 * (p - 0.42) * (p - 0.42)
+                growth_factor = max(0.08, growth_factor) # never stall, keep 8% minimum
+                # workers vs troops split: if player has many troops globally, growth slows slightly (overextension)
+                # For now use territory-local factor
+                t["troops"] = min(cap, t["troops"] + tr*dt*growth_factor*1.8 )
             # population growth visual? ignore
             # gold per player (not per territory? we accumulate per player)
             # We'll handle gold globally later
@@ -313,9 +317,13 @@ def game_tick(lobby):
             continue
         # if target already owned by attacker and no defender, just move troops? Capture neutral
         dist = math.hypot(src["x"]-tgt["x"], src["y"]-tgt["y"])
-        # naval distance larger? Use same
-        base_time = 1.4 + dist/500*2.2  # seconds
-        # Adjust for terrain move? ignore
+        # terrain slows attack
+        terrain_move = TERRAIN_MODS.get(tgt["terrain"], {"move":1.0})["move"]
+        defense_slow = 1 + tgt["buildings"].get("defense",0)*0.18
+        base_time = (1.35 + dist/520*2.1) / terrain_move * defense_slow
+        # naval slightly slower due to loading
+        if atk.get("isNaval"):
+            base_time *= 1.15
         atk["progress"] += dt / base_time
         if atk["progress"] >= 1.0:
             # resolve combat
@@ -358,6 +366,13 @@ def resolve_attack(game, atk, src, tgt):
         src["troops"] += atk["troops"]*0.5
         push_event(game, {"type":"info","message":f"Attack cancelled - {tgt['name']} is allied","territoryId":tgt["id"]})
         return
+    # Encirclement: if all non-water neighbors are attacker/ally, defender surrenders with minimal losses
+    encircled=False
+    if tgt["ownerId"] is not None:
+        non_water_nbrs = [nb for nb in tgt["neighbors"] if not game["territories"].get(nb,{}).get("isWater")]
+        if non_water_nbrs and all(game["territories"][nb].get("ownerId")==attacker["id"] or game["territories"][nb].get("ownerId") in attacker.get("allies",set()) for nb in non_water_nbrs):
+            encircled=True
+
     atkTroops = atk["troops"]
     defTroops = tgt["troops"]
     # terrain defense
@@ -365,20 +380,38 @@ def resolve_attack(game, atk, src, tgt):
     defense_build = tgt["buildings"].get("defense",0)*0.45
     # defender effective
     def_eff = defTroops * (1 + terrain_def + defense_build)
-    # attacker effective with some randomness and ratio bonus? attacker ratio already in troops commitment, but we give small bonus for high commitment? not needed
-    # Attacker slightly stronger to encourage attack? 1.05 multiplier?
-    atk_eff = atkTroops * 1.05
+    # 2:1 bonus: if attack has >2x defender, losses flatten and attack becomes very efficient (OpenFront-style)
+    ratio = atkTroops / max(1,defTroops)
+    if ratio>2:
+        # beyond 2:1, attacker efficiency high, defender losses huge
+        atk_eff = atkTroops * (1.12 + min(0.08, (ratio-2)*0.02))
+        def_eff *= 0.92
+    elif encircled:
+        atk_eff = atkTroops * 1.4
+        def_eff *= 0.6
+    else:
+        atk_eff = atkTroops * 1.05
     # If target is neutral with low troops, easier
     is_neutral = defender is None
     if is_neutral:
-        def_eff *= 0.85
+        def_eff *= 0.82
 
     # Combat outcome
     # Capture if atk_eff > def_eff
-    if atk_eff > def_eff:
-        remaining = atk_eff - def_eff
-        # Need to decide remaining troops that occupy territory: at least 20% of initial or remaining capped
-        occupy = max(30, int(remaining * 0.6))
+    # Encircled capture is always success even if slightly outnumbered
+    will_capture = atk_eff > def_eff or (encircled and atkTroops > defTroops*0.6)
+    if will_capture:
+        if encircled:
+            # minimal losses, occupy with most troops
+            occupy = max(40, int(atkTroops * 0.85))
+            push_event(game, {"type":"capture","message":f"⭕ {attacker['name']} encircled and captured {tgt['name']}!","territoryId":tgt["id"],"playerId":attacker["id"],"success":True,"important":True})
+        else:
+            remaining = atk_eff - def_eff
+            # Need to decide remaining troops that occupy territory: at least 20% of initial or remaining capped
+            occupy = max(30, int(remaining * 0.62))
+            # Enforce 2:1 bonus reduces attacker losses
+            if ratio>2:
+                occupy = max(occupy, int(atkTroops*0.55))
         # Limit to not exceed cap
         prev_owner = tgt["ownerId"]
         tgt["ownerId"] = attacker["id"]
@@ -388,8 +421,10 @@ def resolve_attack(game, atk, src, tgt):
         if tgt["buildings"]["defense"]>0 and random.random()<0.4:
             tgt["buildings"]["defense"] = max(0, tgt["buildings"]["defense"]-1)
         # Source already deducted, no further
-        # Event
-        if is_neutral:
+        # Event (encircled already announced, skip duplicate)
+        if encircled:
+            pass
+        elif is_neutral:
             push_event(game, {"type":"capture","message":f"{attacker['name']} captured {tgt['name']}","territoryId":tgt["id"],"playerId":attacker["id"],"success":True})
         else:
             push_event(game, {"type":"capture","message":f"{attacker['name']} conquered {tgt['name']} from {defender['name']}!","territoryId":tgt["id"],"playerId":attacker["id"],"success":True})

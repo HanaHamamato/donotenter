@@ -5,6 +5,9 @@ const $$ = s=>[...document.querySelectorAll(s)];
 let ws=null, playerId=null, maps=[], lobbies=[], currentLobby=null, gameState=null;
 let selectedId=null, hoveredId=null, attackRatio=0.55;
 let camera={x:500,y:300,zoom:1, tx:500, ty:300, tzoom:1};
+let showTerrain=false;
+let perfFPS=60, lastFpsTime=performance.now(), frameCount=0;
+let minimapCanvas=null, minimapCtx=null;
 let isDragging=false, dragStart=null, lastMouse=null;
 let animFrame=null;
 let particlesEnabled=true, shakeEnabled=true, reduceMotion=false;
@@ -380,10 +383,19 @@ $("#ratioSlider").oninput=e=>{
   updateRatioDisplay();
 };
 document.addEventListener("keydown", e=>{
+  if(e.key===" "){
+    e.preventDefault();
+    showTerrain=true;
+    const hint=$("#terrainHint");
+    if(hint) hint.classList.remove("hidden");
+  }
+  if(e.key==="1"){ attackRatio=Math.max(0.1, attackRatio-0.05); $("#ratioSlider").value=Math.round(attackRatio*100); $("#ratioVal").textContent=Math.round(attackRatio*100)+"%"; updateRatioDisplay(); }
+  if(e.key==="2"){ attackRatio=Math.min(0.95, attackRatio+0.05); $("#ratioSlider").value=Math.round(attackRatio*100); $("#ratioVal").textContent=Math.round(attackRatio*100)+"%"; updateRatioDisplay(); }
   if(e.key==="t"||e.key==="T"){ attackRatio=Math.min(0.95, attackRatio+0.05); $("#ratioSlider").value=Math.round(attackRatio*100); $("#ratioVal").textContent=Math.round(attackRatio*100)+"%"; updateRatioDisplay(); }
   if(e.key==="y"||e.key==="Y"){ attackRatio=Math.max(0.1, attackRatio-0.05); $("#ratioSlider").value=Math.round(attackRatio*100); $("#ratioVal").textContent=Math.round(attackRatio*100)+"%"; updateRatioDisplay(); }
   if(e.key==="c"||e.key==="C"){ centerOnOwn(); }
-  if(e.key==="Escape"){ selectedId=null; updateSelection(); }
+  if(e.key==="Escape"){ selectedId=null; updateSelection(); hideRadial(); }
+  if(e.key==="D" && e.shiftKey){ const ov=$("#perfOverlay"); if(ov) ov.classList.toggle("hidden"); }
 });
 function updateRatioDisplay(){
   if(!gameState || !selectedId){ $("#ratioCommitted").textContent="—"; $("#ratioRemain").textContent="—"; return; }
@@ -398,6 +410,8 @@ function updateRatioDisplay(){
 // Canvas setup
 const canvas=$("#gameCanvas");
 const ctx=canvas.getContext("2d");
+minimapCanvas=$("#minimap");
+if(minimapCanvas) minimapCtx=minimapCanvas.getContext("2d");
 function resizeCanvas(){
   const wrap=$("#canvasWrap");
   const rect=wrap.getBoundingClientRect();
@@ -415,6 +429,13 @@ setTimeout(resizeCanvas, 200);
 // Camera controls
 canvas.addEventListener("wheel", e=>{
   e.preventDefault();
+  if(e.shiftKey){
+    attackRatio=Math.max(0.1, Math.min(0.95, attackRatio + (e.deltaY>0?-0.05:0.05)));
+    $("#ratioSlider").value=Math.round(attackRatio*100);
+    $("#ratioVal").textContent=Math.round(attackRatio*100)+"%";
+    updateRatioDisplay();
+    return;
+  }
   const delta = e.deltaY>0? 0.9 : 1.1;
   camera.tzoom = Math.max(0.55, Math.min(2.6, camera.tzoom*delta));
   // also adjust attack ratio with ctrl
@@ -493,10 +514,17 @@ canvas.addEventListener("click", e=>{
 });
 canvas.addEventListener("contextmenu", e=>{
   e.preventDefault();
-  // right click could open context menu - for now select
   const pos=screenToWorld(e.clientX,e.clientY);
   const tid=pickTerritory(pos.x,pos.y);
-  if(tid){ selectedId=tid; updateSelection(); }
+  if(tid){
+    selectedId=tid; updateSelection();
+    const terr=gameState?.territories[tid];
+    if(terr && terr.ownerId===playerId && !terr.isWater){
+      showRadial(e.clientX, e.clientY, tid);
+    }
+  } else {
+    hideRadial();
+  }
 });
 // Touch
 let pinchDist=0;
@@ -586,11 +614,49 @@ function centerOnOwn(){
   const avgY=owned.reduce((s,t)=>s+t.y,0)/owned.length;
   camera.tx=avgX; camera.ty=avgY;
 }
+// Minimap
+function initMinimap(){
+  if(!minimapCanvas) return;
+  minimapCanvas.addEventListener("click", e=>{
+    const rect=minimapCanvas.getBoundingClientRect();
+    const x=(e.clientX-rect.left)/rect.width;
+    const y=(e.clientY-rect.top)/rect.height;
+    // map is 0-1000 x, 0-600 y
+    camera.tx = x*1000;
+    camera.ty = y*600;
+  });
+}
+setTimeout(initMinimap, 500);
+function drawMinimap(){
+  if(!minimapCtx || !gameState) return;
+  const w=minimapCanvas.width, h=minimapCanvas.height;
+  minimapCtx.clearRect(0,0,w,h);
+  // background
+  minimapCtx.fillStyle="#08102a";
+  minimapCtx.fillRect(0,0,w,h);
+  // draw territories as dots
+  for(const tid in gameState.territories){
+    const terr=gameState.territories[tid];
+    const owner=gameState.players[terr.ownerId];
+    const x=(terr.x/1000)*w;
+    const y=(terr.y/600)*h;
+    minimapCtx.fillStyle = owner? owner.color : (terr.isWater?"#0a2a5a":"#1e274d");
+    minimapCtx.fillRect(x-1,y-1,2,2);
+  }
+  // viewport rect
+  const rectW = ( (canvas.getBoundingClientRect().width / camera.zoom) /1000)*w;
+  const rectH = ( (canvas.getBoundingClientRect().height / camera.zoom)/600)*h;
+  const vx = (camera.x/1000)*w - rectW/2;
+  const vy = (camera.y/600)*h - rectH/2;
+  minimapCtx.strokeStyle="#ffd166";
+  minimapCtx.lineWidth=1;
+  minimapCtx.strokeRect(vx,vy,rectW,rectH);
+}
 
 // WASD
 const keys={};
 window.addEventListener("keydown", e=>{ keys[e.key.toLowerCase()]=true; });
-window.addEventListener("keyup", e=>{ keys[e.key.toLowerCase()]=false; });
+window.addEventListener("keyup", e=>{ keys[e.key.toLowerCase()]=false; if(e.key===" "){ showTerrain=false; const hint=$("#terrainHint"); if(hint) hint.classList.add("hidden"); }});
 function handleKeys(dt){
   const speed= 420*dt / camera.zoom; // pan speed
   if(keys["w"]||keys["arrowup"]) camera.ty-=speed;
@@ -770,6 +836,47 @@ function enterMissileMode(){
   missileMode=true;
   toast("Missile mode: click enemy territory to strike (5s warning)");
   setTimeout(()=>missileMode=false, 8000);
+}
+// Radial menu
+function showRadial(x,y, territoryId){
+  const el=$("#radial");
+  if(!el || !territoryId) return;
+  el.style.left=x+"px";
+  el.style.top=y+"px";
+  el.classList.remove("hidden");
+  el.dataset.terr=territoryId;
+  // disable port if not coastal
+  const terr=gameState?.territories[territoryId];
+  const portBtn=el.querySelector('[data-radial="port"]');
+  if(portBtn) portBtn.style.opacity = (terr && terr.coastal)?"1":"0.35";
+}
+function hideRadial(){
+  const el=$("#radial");
+  if(el) el.classList.add("hidden");
+}
+document.addEventListener("click", e=>{
+  const rad=$("#radial");
+  if(rad && !rad.classList.contains("hidden") && !rad.contains(e.target)){
+    hideRadial();
+  }
+});
+if($("#radial")){
+  $("#radial").querySelectorAll("button").forEach(btn=>{
+    btn.onclick=(e)=>{
+      e.stopPropagation();
+      const act=btn.dataset.radial;
+      const tid=$("#radial").dataset.terr;
+      if(act==="close"){ hideRadial(); return; }
+      if(!tid || !gameState) return;
+      const terr=gameState.territories[tid];
+      if(!terr) return;
+      if(terr.ownerId!==playerId){ toast("You don't own this territory",true); hideRadial(); return; }
+      send({type:"build", territoryId:tid, building:act});
+      playSfx("build");
+      notify(`Building ${act} in ${terr.name}`);
+      hideRadial();
+    };
+  });
 }
 // Hook missile mode into canvas click already handled? Need intercept
 const origCanvasClick = canvas.onclick;
@@ -1006,6 +1113,12 @@ function render(){
       ctx.fillStyle="#0a1f4a";
       ctx.strokeStyle="#0f2f6a";
       ctx.lineWidth=1.2;
+    } else if(showTerrain){
+      const terrColors={plains:"#2a3a2a",forest:"#1e3a1e",mountain:"#4a3728",desert:"#3a3520",arctic:"#2a3a4a"};
+      ctx.fillStyle=terrColors[t.terrain]||"#2a3358";
+      if(owner) ctx.fillStyle=owner.color+"cc";
+      ctx.strokeStyle="#1a2a4a";
+      ctx.lineWidth=1;
     } else {
       const baseColor = owner? owner.color : "#2a3358";
       // adjust brightness for terrain
@@ -1057,6 +1170,40 @@ function render(){
     }
   }
 
+  // Hover attack preview (OpenFront-style: dashed line to hovered neighbor)
+  if(selectedId && hoveredId && selectedId!==hoveredId && gameState){
+    const src=gameState.territories[selectedId];
+    const tgt=gameState.territories[hoveredId];
+    if(src && tgt && src.ownerId===playerId && !tgt.isWater){
+      const isNei=src.neighbors.includes(hoveredId);
+      const hasPort=src.buildings.port>0;
+      const navalOk=src.coastal && tgt.coastal && hasPort;
+      if(isNei || navalOk){
+        ctx.save();
+        ctx.strokeStyle=navalOk?"#00d2ff88":"#ffd16688";
+        ctx.lineWidth=2;
+        ctx.setLineDash([4,6]);
+        ctx.beginPath();
+        ctx.moveTo(src.x, src.y);
+        if(navalOk){
+          const mx=(src.x+tgt.x)/2, my=(src.y+tgt.y)/2 - 18;
+          ctx.quadraticCurveTo(mx,my, tgt.x, tgt.y);
+        } else {
+          ctx.lineTo(tgt.x, tgt.y);
+        }
+        ctx.stroke();
+        ctx.setLineDash([]);
+        // ghost troops preview
+        const committed=Math.floor(src.troops*attackRatio);
+        ctx.fillStyle="#ffd166aa";
+        ctx.font="700 10px system-ui";
+        ctx.textAlign="center";
+        ctx.fillText(`→ ${committed}`, (src.x+tgt.x)/2, (src.y+tgt.y)/2 - 10);
+        ctx.restore();
+      }
+    }
+  }
+
   // Draw attacks
   for(const atk of (gameState.attacks||[])){
     const src=gameState.territories[atk.sourceId];
@@ -1080,8 +1227,42 @@ function render(){
     ctx.stroke();
     ctx.setLineDash([]);
     // moving dot
-    const travelX = lerp(src.x, tgt.x, prog);
+    const travelX = isNaval? lerp(src.x, tgt.x, prog) : lerp(src.x, tgt.x, prog);
     const travelY = isNaval? lerp(src.y, tgt.y, prog) - Math.sin(prog*Math.PI)*22 : lerp(src.y, tgt.y, prog);
+    // fluid front: stretch line from source toward target as progress increases (border sweep)
+    if(prog>0.15){
+      const frontProg = Math.min(1, (prog-0.15)/0.75);
+      const fx = lerp(src.x, tgt.x, frontProg*0.92);
+      const fy = isNaval? lerp(src.y, tgt.y, frontProg*0.92) - Math.sin(frontProg*Math.PI)*18 : lerp(src.y, tgt.y, frontProg*0.92);
+      // sweep line perpendicular to direction
+      const ang2 = Math.atan2(tgt.y-src.y, tgt.x-src.x);
+      const perp = ang2 + Math.PI/2;
+      const w = 18 + atk.troops/80;
+      ctx.save();
+      ctx.strokeStyle = (attacker? attacker.color : "#ff5a6a") + "66";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(fx + Math.cos(perp)*w, fy + Math.sin(perp)*w);
+      ctx.lineTo(fx - Math.cos(perp)*w, fy - Math.sin(perp)*w);
+      ctx.stroke();
+      ctx.restore();
+      // color blend target toward attacker as battle progresses (capture transition)
+      if(prog>0.65){
+        const blend = (prog-0.65)/0.35;
+        const orig = tgt.isWater? "#0a1f4a" : (gameState.players[tgt.ownerId]?.color || "#1e274d");
+        // we draw a translucent attacker color overlay on target polygon
+        const polyTgt = getPoly(tgt);
+        ctx.save();
+        ctx.globalAlpha = blend*0.45;
+        ctx.fillStyle = attacker? attacker.color : "#e74c3c";
+        ctx.beginPath();
+        ctx.moveTo(polyTgt[0][0], polyTgt[0][1]);
+        for(let i=1;i<polyTgt.length;i++) ctx.lineTo(polyTgt[i][0], polyTgt[i][1]);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+    }
     // draw arrow head
     const ang = Math.atan2(tgt.y - src.y, tgt.x - src.x);
     ctx.save();
@@ -1221,6 +1402,16 @@ function render(){
   // Could flash
 
   ctx.restore();
+  drawMinimap();
+  // perf
+  frameCount++;
+  const nowPerf=performance.now();
+  if(nowPerf-lastFpsTime>500){
+    perfFPS=Math.round(frameCount*1000/(nowPerf-lastFpsTime));
+    frameCount=0; lastFpsTime=nowPerf;
+    const el=$("#perfText");
+    if(el) el.textContent=perfFPS+" FPS • "+Object.keys(gameState.territories).length+" terr";
+  }
 
   // Screen shake if major event?
   // HUD already updated via interval

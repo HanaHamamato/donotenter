@@ -10,10 +10,8 @@
       "x": 750,
       "y": 120,
       "neighbors": [
-        "ural",
         "mongolia",
-        "china_n",
-        "kazakhstan"
+        "korea"
       ],
       "terrain": "arctic",
       "coastal": true,
@@ -25,40 +23,71 @@
       "x": 580,
       "y": 150,
       "neighbors": [
-        "siberia",
-        "kazakhstan",
-        "russia_west"
+        "russia_west_1",
+        "russia_west_2",
+        "kazakhstan_1",
+        "kazakhstan_2",
+        "caucasus"
       ],
       "terrain": "plains",
       "coastal": false,
       "isWater": false
     },
     {
-      "id": "russia_west",
-      "name": "European Russia",
-      "x": 520,
+      "id": "russia_west_1",
+      "name": "European Russia 1",
+      "x": 534,
       "y": 140,
       "neighbors": [
         "ural",
-        "kazakhstan",
-        "turkey"
+        "russia_west_2",
+        "kazakhstan_2",
+        "caucasus"
       ],
       "terrain": "plains",
       "coastal": true,
       "isWater": false
     },
     {
-      "id": "kazakhstan",
-      "name": "Kazakhstan",
-      "x": 580,
+      "id": "russia_west_2",
+      "name": "European Russia 2",
+      "x": 506,
+      "y": 140,
+      "neighbors": [
+        "ural",
+        "russia_west_1",
+        "caucasus"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "kazakhstan_1",
+      "name": "Kazakhstan 1",
+      "x": 594,
       "y": 200,
       "neighbors": [
         "ural",
-        "siberia",
-        "mongolia",
-        "china_w",
-        "iran",
-        "russia_west",
+        "kazakhstan_2",
+        "china_w_1",
+        "china_w_2",
+        "caucasus"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "kazakhstan_2",
+      "name": "Kazakhstan 2",
+      "x": 566,
+      "y": 200,
+      "neighbors": [
+        "ural",
+        "russia_west_1",
+        "kazakhstan_1",
+        "china_w_2",
         "pakistan",
         "caucasus"
       ],
@@ -72,80 +101,151 @@
       "x": 680,
       "y": 180,
       "neighbors": [
-        "siberia",
-        "kazakhstan",
-        "china_w",
-        "china_e",
-        "korea",
-        "china_c"
+        "china_w_1",
+        "siberia"
       ],
       "terrain": "plains",
       "coastal": false,
       "isWater": false
     },
     {
-      "id": "china_w",
-      "name": "Xinjiang",
-      "x": 620,
+      "id": "china_w_1",
+      "name": "Xinjiang 1",
+      "x": 634,
       "y": 240,
       "neighbors": [
-        "kazakhstan",
-        "mongolia",
-        "china_c",
-        "pakistan",
-        "india_n",
-        "china_e"
+        "china_w_2",
+        "china_c_2",
+        "china_c_1",
+        "kazakhstan_1",
+        "china_e_2",
+        "mongolia"
       ],
       "terrain": "mountain",
       "coastal": false,
       "isWater": false
     },
     {
-      "id": "china_c",
-      "name": "Tibet",
-      "x": 650,
+      "id": "china_w_2",
+      "name": "Xinjiang 2",
+      "x": 606,
+      "y": 240,
+      "neighbors": [
+        "kazakhstan_1",
+        "kazakhstan_2",
+        "china_w_1",
+        "china_c_1",
+        "china_c_2",
+        "pakistan"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "china_c_1",
+      "name": "Tibet 1",
+      "x": 664,
       "y": 270,
       "neighbors": [
-        "china_w",
-        "china_e",
-        "india_n",
-        "mongolia",
-        "china_s"
+        "china_c_2",
+        "china_e_2",
+        "china_s_2",
+        "china_w_1",
+        "china_s_1",
+        "china_e_1",
+        "china_w_2"
       ],
       "terrain": "mountain",
       "coastal": false,
       "isWater": false
     },
     {
-      "id": "china_e",
-      "name": "Eastern China",
-      "x": 710,
+      "id": "china_c_2",
+      "name": "Tibet 2",
+      "x": 636,
+      "y": 270,
+      "neighbors": [
+        "china_c_1",
+        "china_w_1",
+        "china_w_2",
+        "china_s_2",
+        "india_n_1",
+        "china_e_2"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "china_e_1",
+      "name": "Eastern China 1",
+      "x": 724,
       "y": 260,
       "neighbors": [
-        "mongolia",
-        "china_c",
-        "china_w",
+        "china_c_1",
+        "china_e_2",
+        "china_s_1",
+        "china_s_2",
         "korea",
-        "japan",
-        "taiwan",
-        "china_s"
+        "taiwan"
       ],
       "terrain": "plains",
       "coastal": true,
       "isWater": false
     },
     {
-      "id": "china_s",
-      "name": "Southern China",
-      "x": 680,
+      "id": "china_e_2",
+      "name": "Eastern China 2",
+      "x": 696,
+      "y": 260,
+      "neighbors": [
+        "china_e_1",
+        "china_c_1",
+        "china_s_1",
+        "china_s_2",
+        "china_c_2",
+        "china_w_1",
+        "korea",
+        "taiwan"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "china_s_1",
+      "name": "Southern China 1",
+      "x": 694,
       "y": 310,
       "neighbors": [
-        "china_c",
-        "china_e",
-        "vietnam",
-        "india_n",
+        "china_s_2",
         "myanmar",
-        "thailand"
+        "china_c_1",
+        "china_e_2",
+        "vietnam",
+        "taiwan",
+        "china_e_1",
+        "philippines"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "china_s_2",
+      "name": "Southern China 2",
+      "x": 666,
+      "y": 310,
+      "neighbors": [
+        "china_s_1",
+        "myanmar",
+        "bangladesh",
+        "china_c_1",
+        "china_c_2",
+        "india_n_1",
+        "china_e_1",
+        "china_e_2"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -157,9 +257,11 @@
       "x": 765,
       "y": 240,
       "neighbors": [
-        "mongolia",
-        "china_e",
-        "japan"
+        "china_e_1",
+        "china_e_2",
+        "japan",
+        "taiwan",
+        "siberia"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -171,10 +273,7 @@
       "x": 815,
       "y": 230,
       "neighbors": [
-        "korea",
-        "china_e",
-        "taiwan",
-        "philippines"
+        "korea"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -186,10 +285,12 @@
       "x": 750,
       "y": 320,
       "neighbors": [
-        "china_e",
-        "japan",
         "philippines",
-        "vietnam"
+        "china_s_1",
+        "vietnam",
+        "china_e_1",
+        "china_e_2",
+        "korea"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -201,42 +302,84 @@
       "x": 550,
       "y": 270,
       "neighbors": [
+        "kazakhstan_2",
+        "china_w_2",
+        "india_n_2",
         "iran",
-        "kazakhstan",
-        "china_w",
-        "india_n"
+        "syria",
+        "saudi"
       ],
       "terrain": "desert",
       "coastal": false,
       "isWater": false
     },
     {
-      "id": "india_n",
-      "name": "North India",
-      "x": 600,
+      "id": "india_n_1",
+      "name": "North India 1",
+      "x": 614,
       "y": 320,
       "neighbors": [
-        "pakistan",
-        "china_w",
-        "china_c",
-        "china_s",
-        "india_s",
-        "bangladesh"
+        "india_n_2",
+        "bangladesh",
+        "india_s_1",
+        "myanmar",
+        "china_s_2",
+        "india_s_2",
+        "china_c_2",
+        "yemen"
       ],
       "terrain": "plains",
       "coastal": false,
       "isWater": false
     },
     {
-      "id": "india_s",
-      "name": "South India",
-      "x": 610,
+      "id": "india_n_2",
+      "name": "North India 2",
+      "x": 586,
+      "y": 320,
+      "neighbors": [
+        "india_n_1",
+        "yemen",
+        "india_s_2",
+        "bangladesh",
+        "saudi",
+        "pakistan"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "india_s_1",
+      "name": "South India 1",
+      "x": 624,
       "y": 370,
       "neighbors": [
-        "india_n",
+        "india_s_2",
         "bangladesh",
         "sri_lanka",
-        "malaysia"
+        "myanmar",
+        "india_n_1",
+        "malaysia",
+        "thailand",
+        "yemen"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "india_s_2",
+      "name": "South India 2",
+      "x": 596,
+      "y": 370,
+      "neighbors": [
+        "india_s_1",
+        "sri_lanka",
+        "yemen",
+        "india_n_2",
+        "india_n_1",
+        "bangladesh"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -248,9 +391,13 @@
       "x": 640,
       "y": 335,
       "neighbors": [
-        "india_n",
-        "india_s",
-        "myanmar"
+        "myanmar",
+        "india_n_1",
+        "china_s_2",
+        "india_s_1",
+        "thailand",
+        "india_n_2",
+        "india_s_2"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -262,7 +409,12 @@
       "x": 625,
       "y": 410,
       "neighbors": [
-        "india_s"
+        "india_s_1",
+        "malaysia",
+        "india_s_2",
+        "indonesia_2",
+        "thailand",
+        "myanmar"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -275,9 +427,13 @@
       "y": 345,
       "neighbors": [
         "bangladesh",
-        "china_s",
         "thailand",
-        "malaysia"
+        "china_s_2",
+        "india_s_1",
+        "vietnam",
+        "china_s_1",
+        "india_n_1",
+        "sri_lanka"
       ],
       "terrain": "forest",
       "coastal": true,
@@ -289,10 +445,15 @@
       "x": 680,
       "y": 370,
       "neighbors": [
-        "myanmar",
-        "china_s",
+        "vietnam",
         "malaysia",
-        "vietnam"
+        "myanmar",
+        "bangladesh",
+        "india_s_1",
+        "indonesia_2",
+        "sri_lanka",
+        "indonesia_1",
+        "philippines"
       ],
       "terrain": "forest",
       "coastal": true,
@@ -304,10 +465,14 @@
       "x": 705,
       "y": 360,
       "neighbors": [
-        "china_s",
         "thailand",
+        "myanmar",
+        "china_s_1",
+        "malaysia",
+        "philippines",
         "taiwan",
-        "philippines"
+        "indonesia_1",
+        "indonesia_2"
       ],
       "terrain": "forest",
       "coastal": true,
@@ -320,9 +485,28 @@
       "y": 400,
       "neighbors": [
         "thailand",
-        "myanmar",
-        "india_s",
-        "indonesia",
+        "indonesia_2",
+        "sri_lanka",
+        "vietnam",
+        "indonesia_1",
+        "india_s_1"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "indonesia_1",
+      "name": "Indonesia 1",
+      "x": 714,
+      "y": 430,
+      "neighbors": [
+        "indonesia_2",
+        "malaysia",
+        "thailand",
+        "australia_w_2",
+        "vietnam",
+        "australia_w_1",
         "philippines"
       ],
       "terrain": "forest",
@@ -330,14 +514,18 @@
       "isWater": false
     },
     {
-      "id": "indonesia",
-      "name": "Indonesia",
-      "x": 700,
+      "id": "indonesia_2",
+      "name": "Indonesia 2",
+      "x": 686,
       "y": 430,
       "neighbors": [
+        "indonesia_1",
         "malaysia",
-        "philippines",
-        "australia_w"
+        "thailand",
+        "sri_lanka",
+        "vietnam",
+        "australia_w_2",
+        "australia_w_1"
       ],
       "terrain": "forest",
       "coastal": true,
@@ -349,37 +537,70 @@
       "x": 760,
       "y": 360,
       "neighbors": [
+        "china_s_1",
         "taiwan",
-        "japan",
+        "thailand",
         "vietnam",
-        "malaysia",
-        "indonesia"
+        "indonesia_1"
       ],
       "terrain": "forest",
       "coastal": true,
       "isWater": false
     },
     {
-      "id": "australia_w",
-      "name": "Western Australia",
-      "x": 720,
+      "id": "australia_w_1",
+      "name": "Western Australia 1",
+      "x": 734,
       "y": 500,
       "neighbors": [
-        "indonesia",
-        "australia_e"
+        "indonesia_1",
+        "indonesia_2",
+        "australia_w_2",
+        "australia_e_1",
+        "australia_e_2"
       ],
       "terrain": "desert",
       "coastal": true,
       "isWater": false
     },
     {
-      "id": "australia_e",
-      "name": "Eastern Australia",
-      "x": 800,
+      "id": "australia_w_2",
+      "name": "Western Australia 2",
+      "x": 706,
+      "y": 500,
+      "neighbors": [
+        "indonesia_1",
+        "indonesia_2",
+        "australia_w_1",
+        "australia_e_2"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "australia_e_1",
+      "name": "Eastern Australia 1",
+      "x": 814,
       "y": 490,
       "neighbors": [
-        "australia_w",
+        "australia_w_1",
+        "australia_e_2",
         "new_zealand"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "australia_e_2",
+      "name": "Eastern Australia 2",
+      "x": 786,
+      "y": 490,
+      "neighbors": [
+        "australia_w_1",
+        "australia_w_2",
+        "australia_e_1"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -391,7 +612,7 @@
       "x": 860,
       "y": 540,
       "neighbors": [
-        "australia_e"
+        "australia_e_1"
       ],
       "terrain": "plains",
       "coastal": true,
@@ -403,11 +624,9 @@
       "x": 480,
       "y": 230,
       "neighbors": [
-        "russia_w",
         "iran",
         "syria",
-        "russia_west",
-        "caucasus"
+        "egypt"
       ],
       "terrain": "mountain",
       "coastal": true,
@@ -419,11 +638,12 @@
       "x": 520,
       "y": 270,
       "neighbors": [
-        "turkey",
-        "kazakhstan",
         "pakistan",
+        "turkey",
         "syria",
-        "saudi"
+        "saudi",
+        "yemen",
+        "egypt"
       ],
       "terrain": "desert",
       "coastal": true,
@@ -435,6 +655,7 @@
       "x": 500,
       "y": 250,
       "neighbors": [
+        "pakistan",
         "turkey",
         "iran",
         "saudi",
@@ -450,10 +671,12 @@
       "x": 530,
       "y": 310,
       "neighbors": [
-        "syria",
+        "pakistan",
+        "india_n_2",
         "iran",
-        "egypt",
-        "yemen"
+        "syria",
+        "yemen",
+        "egypt"
       ],
       "terrain": "desert",
       "coastal": true,
@@ -465,8 +688,12 @@
       "x": 550,
       "y": 350,
       "neighbors": [
-        "saudi",
-        "egypt"
+        "india_n_1",
+        "india_n_2",
+        "india_s_1",
+        "india_s_2",
+        "iran",
+        "saudi"
       ],
       "terrain": "desert",
       "coastal": true,
@@ -478,9 +705,10 @@
       "x": 470,
       "y": 290,
       "neighbors": [
+        "turkey",
+        "iran",
         "syria",
-        "saudi",
-        "yemen"
+        "saudi"
       ],
       "terrain": "desert",
       "coastal": true,
@@ -492,9 +720,11 @@
       "x": 540,
       "y": 180,
       "neighbors": [
-        "russia_w",
-        "turkey",
-        "kazakhstan"
+        "ural",
+        "russia_west_1",
+        "russia_west_2",
+        "kazakhstan_1",
+        "kazakhstan_2"
       ],
       "terrain": "mountain",
       "coastal": false,

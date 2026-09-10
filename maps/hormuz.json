@@ -1,0 +1,357 @@
+{
+  "id": "hormuz",
+  "name": "Strait of Hormuz",
+  "width": 1000,
+  "height": 600,
+  "territories": [
+    {
+      "id": "fars",
+      "name": "Fars",
+      "x": 300,
+      "y": 80,
+      "neighbors": [
+        "bushehr",
+        "kerman",
+        "hormozgan",
+        "yazd"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "bushehr",
+      "name": "Bushehr",
+      "x": 200,
+      "y": 140,
+      "neighbors": [
+        "fars",
+        "khuzestan",
+        "hormozgan",
+        "persian_gulf"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "khuzestan",
+      "name": "Khuzestan",
+      "x": 120,
+      "y": 100,
+      "neighbors": [
+        "bushehr",
+        "ilam",
+        "iraq_s",
+        "persian_gulf"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ilam",
+      "name": "Ilam",
+      "x": 100,
+      "y": 60,
+      "neighbors": [
+        "khuzestan",
+        "kermanshah"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "kerman",
+      "name": "Kerman",
+      "x": 500,
+      "y": 120,
+      "neighbors": [
+        "fars",
+        "hormozgan",
+        "sistan",
+        "yazd"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "hormozgan",
+      "name": "Hormozgan",
+      "x": 400,
+      "y": 180,
+      "neighbors": [
+        "fars",
+        "bushehr",
+        "kerman",
+        "qeshm",
+        "persian_gulf",
+        "oman_gulf",
+        "bandar_abbas",
+        "sistan",
+        "hormuz_island"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "qeshm",
+      "name": "Qeshm Island",
+      "x": 430,
+      "y": 220,
+      "neighbors": [
+        "hormozgan",
+        "bandar_abbas",
+        "oman_gulf",
+        "persian_gulf"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "bandar_abbas",
+      "name": "Bandar Abbas",
+      "x": 420,
+      "y": 200,
+      "neighbors": [
+        "hormozgan",
+        "qeshm"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "sistan",
+      "name": "Sistan",
+      "x": 620,
+      "y": 140,
+      "neighbors": [
+        "kerman",
+        "hormozgan",
+        "pakistan",
+        "arabian_sea"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "persian_gulf",
+      "name": "Persian Gulf",
+      "x": 250,
+      "y": 250,
+      "neighbors": [
+        "bushehr",
+        "khuzestan",
+        "hormozgan",
+        "qeshm",
+        "bahrain",
+        "qatar",
+        "uae",
+        "kuwait",
+        "iraq_s",
+        "saudi_e",
+        "abu_musa"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": true
+    },
+    {
+      "id": "oman_gulf",
+      "name": "Gulf of Oman",
+      "x": 480,
+      "y": 280,
+      "neighbors": [
+        "hormozgan",
+        "qeshm",
+        "oman",
+        "uae",
+        "arabian_sea",
+        "abu_musa",
+        "hormuz_island"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": true
+    },
+    {
+      "id": "arabian_sea",
+      "name": "Arabian Sea",
+      "x": 550,
+      "y": 350,
+      "neighbors": [
+        "oman_gulf",
+        "oman",
+        "sistan"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": true
+    },
+    {
+      "id": "iraq_s",
+      "name": "Southern Iraq",
+      "x": 80,
+      "y": 180,
+      "neighbors": [
+        "khuzestan",
+        "kuwait",
+        "persian_gulf"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "kuwait",
+      "name": "Kuwait",
+      "x": 120,
+      "y": 220,
+      "neighbors": [
+        "iraq_s",
+        "persian_gulf",
+        "saudi_e"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "saudi_e",
+      "name": "Eastern Saudi",
+      "x": 150,
+      "y": 300,
+      "neighbors": [
+        "kuwait",
+        "persian_gulf",
+        "qatar",
+        "bahrain",
+        "saudi_c",
+        "uae"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "saudi_c",
+      "name": "Central Saudi",
+      "x": 100,
+      "y": 350,
+      "neighbors": [
+        "saudi_e",
+        "qatar",
+        "yemen"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "bahrain",
+      "name": "Bahrain",
+      "x": 180,
+      "y": 250,
+      "neighbors": [
+        "persian_gulf",
+        "qatar",
+        "saudi_e"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "qatar",
+      "name": "Qatar",
+      "x": 210,
+      "y": 270,
+      "neighbors": [
+        "bahrain",
+        "persian_gulf",
+        "saudi_e",
+        "uae",
+        "saudi_c"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "uae",
+      "name": "UAE",
+      "x": 260,
+      "y": 300,
+      "neighbors": [
+        "persian_gulf",
+        "oman_gulf",
+        "qatar",
+        "saudi_e",
+        "oman"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "oman",
+      "name": "Oman",
+      "x": 350,
+      "y": 360,
+      "neighbors": [
+        "uae",
+        "oman_gulf",
+        "arabian_sea",
+        "yemen"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "yemen",
+      "name": "Yemen",
+      "x": 150,
+      "y": 420,
+      "neighbors": [
+        "oman",
+        "saudi_c"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "abu_musa",
+      "name": "Abu Musa",
+      "x": 380,
+      "y": 240,
+      "neighbors": [
+        "persian_gulf",
+        "oman_gulf"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "hormuz_island",
+      "name": "Hormuz Island",
+      "x": 445,
+      "y": 235,
+      "neighbors": [
+        "hormozgan",
+        "oman_gulf"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    }
+  ]
+}

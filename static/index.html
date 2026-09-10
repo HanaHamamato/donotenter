@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>VANGUARD — Living Strategy</title>
+<link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#0b1020">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div id="app">
+  <!-- TOP BAR -->
+  <header id="topbar">
+    <div class="brand">
+      <div class="logo">⬢</div>
+      <div>
+        <div class="title">VANGUARD</div>
+        <div class="subtitle">TERRA FLUX • Living Front</div>
+      </div>
+    </div>
+    <div id="topStats" class="top-stats hidden">
+      <div class="stat"><span id="hudGold">0</span><label>Gold</label><small id="hudGoldInc">+0/s</small></div>
+      <div class="stat"><span id="hudTroops">0</span><label>Troops</label><small id="hudTroopInc">+0/s</small></div>
+      <div class="stat"><span id="hudTerr">0%</span><label>Territory</label></div>
+      <div class="stat"><span id="hudTimer">—</span><label>Timer</label></div>
+    </div>
+    <div class="top-actions">
+      <button id="btnSettings" class="icon-btn" title="Settings">⚙</button>
+      <button id="btnMusic" class="icon-btn" title="Music">♪</button>
+      <button id="btnLeave" class="icon-btn hidden" title="Leave">✕</button>
+    </div>
+  </header>
+
+  <!-- SCREENS -->
+  <main id="screens">
+    <!-- MENU -->
+    <section id="screen-menu" class="screen active">
+      <div class="hero">
+        <div class="hero-map"></div>
+        <div class="hero-content">
+          <h1 class="hero-title">VANGUARD</h1>
+          <p class="hero-tag">A living real-time territory strategy • Build. Expand. Endure.</p>
+          <div class="hero-actions">
+            <button id="btnPlaySolo" class="btn primary large">▶ Play Solo</button>
+            <button id="btnCreateLobby" class="btn large">+ Create Lobby</button>
+            <button id="btnJoinLobby" class="btn large">∷ Join Lobby</button>
+          </div>
+          <div class="hero-secondary">
+            <button id="btnHowTo" class="btn ghost">How to Play</button>
+            <button id="btnLeaderboard" class="btn ghost">Leaderboard</button>
+            <button id="btnSettings2" class="btn ghost">Settings</button>
+          </div>
+          <div class="feature-row">
+            <div class="feat"><span>⚔️</span><b>Committed Attacks</b><p>Every assault costs troops, time and exposure</p></div>
+            <div class="feat"><span>🏙️</span><b>Living Economy</b><p>Cities, factories, ports shape your future</p></div>
+            <div class="feat"><span>⚓</span><b>Naval Horizons</b><p>Coasts, trade and amphibious power matter</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="maps-preview" id="mapsPreview"></div>
+    </section>
+
+    <!-- LOBBY BROWSER -->
+    <section id="screen-browser" class="screen">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Join Lobby</h2>
+          <button class="btn ghost" id="btnBrowserBack">← Back</button>
+        </div>
+        <div id="lobbyList" class="lobby-list"></div>
+        <div class="panel-foot">
+          <input id="joinCode" placeholder="Enter lobby code">
+          <button id="btnJoinByCode" class="btn">Join by Code</button>
+          <button id="btnRefreshLobbies" class="btn ghost">Refresh</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOBBY -->
+    <section id="screen-lobby" class="screen">
+      <div class="lobby-layout">
+        <div class="lobby-main panel">
+          <div class="panel-head">
+            <h2 id="lobbyName">Lobby</h2>
+            <code id="lobbyCode"></code>
+            <button id="btnLobbyLeave" class="btn ghost">Leave</button>
+          </div>
+          <div class="lobby-grid">
+            <div>
+              <h3>Players <small id="lobbyCount"></small></h3>
+              <div id="lobbyPlayers" class="player-list"></div>
+              <div class="ready-row">
+                <button id="btnReady" class="btn">Ready</button>
+                <button id="btnStartGame" class="btn primary">Start Match — Countdown</button>
+              </div>
+            </div>
+            <div>
+              <h3>Map & Settings</h3>
+              <label>Map</label>
+              <select id="selMap"></select>
+              <div class="settings-grid" id="lobbySettings">
+                <!-- settings injected -->
+              </div>
+              <div id="hostOnlyNote" class="note hidden">Only host can change settings</div>
+            </div>
+          </div>
+        </div>
+        <div class="lobby-side panel">
+          <h3>Quick Chat</h3>
+          <div id="lobbyChat" class="chat-box"></div>
+          <div class="chat-input">
+            <select id="chatCategory"><option>Alliance</option><option>Attack</option><option>Defend</option><option>Greetings</option><option>Warning</option></select>
+            <input id="chatText" placeholder="Message…">
+            <button id="btnSendChat" class="btn">Send</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAME -->
+    <section id="screen-game" class="screen game-screen">
+      <div id="gameLayout">
+        <div id="canvasWrap">
+          <canvas id="gameCanvas" width="1000" height="600"></canvas>
+          <div id="canvasOverlay">
+            <div id="attackRatioPanel" class="floating">
+              <div class="ratio-head">Attack Ratio <span id="ratioVal">55%</span></div>
+              <input type="range" id="ratioSlider" min="10" max="95" value="55">
+              <div class="ratio-stats"><span id="ratioCommitted">–</span> committed • <span id="ratioRemain">–</span> remain</div>
+              <div class="ratio-keys">T/Y or wheel to adjust</div>
+            </div>
+            <div id="selectionRing" class="hidden"></div>
+            <div id="victoryBar" class="hidden">
+              <div class="bar-label">Domination</div>
+              <div class="bar-track"><div id="victoryFill"></div></div>
+              <span id="victoryText">0%</span>
+            </div>
+            <div id="countdownOverlay" class="hidden"><span id="countdownText">5</span></div>
+            <div id="notifications"></div>
+          </div>
+          <!-- Mobile action dock -->
+          <div id="mobileDock">
+            <button data-act="attack" class="dock-btn">⚔ Attack</button>
+            <button data-act="build" class="dock-btn">🏙 Build</button>
+            <button data-act="diplo" class="dock-btn">🤝 Diplo</button>
+            <button data-act="naval" class="dock-btn">⚓ Naval</button>
+            <button data-act="missile" class="dock-btn">🚀 Strike</button>
+          </div>
+        </div>
+
+        <aside id="sidePanel">
+          <div class="tabs">
+            <button data-tab="selected" class="tab active">Selected</button>
+            <button data-tab="leader" class="tab">Board</button>
+            <button data-tab="events" class="tab">Events</button>
+            <button data-tab="diplo" class="tab">Diplo</button>
+          </div>
+
+          <div id="tab-selected" class="tab-pane active">
+            <div id="selectedNone" class="empty">Select a territory to inspect</div>
+            <div id="selectedInfo" class="hidden">
+              <h3 id="selName">—</h3>
+              <div class="sel-meta"><span id="selOwner">—</span> • <span id="selTerrain">—</span> <span id="selCoastal" class="badge hidden">Coastal</span></div>
+              <div class="sel-stats">
+                <div class="sel-stat"><b id="selTroops">0</b><label>Troops</label></div>
+                <div class="sel-stat"><b id="selBuildings">0</b><label>Buildings</label></div>
+                <div class="sel-stat"><b id="selDefense">—</b><label>Defense</label></div>
+              </div>
+              <div id="selActions" class="action-grid"></div>
+              <div id="buildPanel" class="build-panel"></div>
+              <div id="contextHelp" class="note"></div>
+            </div>
+          </div>
+
+          <div id="tab-leader" class="tab-pane">
+            <div id="leaderboard" class="leaderboard"></div>
+            <div class="panel-foot"><small>Live — updates 10×/sec • Tap player to focus</small></div>
+          </div>
+
+          <div id="tab-events" class="tab-pane">
+            <div id="eventList" class="event-list"></div>
+          </div>
+
+          <div id="tab-diplo" class="tab-pane">
+            <div id="diploList"></div>
+            <div class="quick-chat">
+              <h4>Quick Chat</h4>
+              <div class="chat-grid">
+                <button data-qc="Help: defend my border">Help</button>
+                <button data-qc="Attack together?">Attack</button>
+                <button data-qc="Need gold">Defend</button>
+                <button data-qc="Alliance?">Alliance</button>
+                <button data-qc="Danger!">Warning</button>
+                <button data-qc="GG!">GG</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="endScreen" class="end-screen hidden">
+            <h2 id="endTitle">Victory!</h2>
+            <div id="endStats"></div>
+            <div class="end-actions">
+              <button id="btnRematch" class="btn primary">Return to Lobby</button>
+              <button id="btnMenuReturn" class="btn ghost">Main Menu</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- HOW TO -->
+    <section id="screen-howto" class="screen">
+      <div class="panel howto">
+        <div class="panel-head"><h2>How to Play — 90 Seconds</h2><button class="btn ghost" id="btnHowToBack">← Back</button></div>
+        <div class="howto-grid">
+          <div class="step"><span>1</span><h4>Camera</h4><p>WASD or drag to pan • Wheel / pinch to zoom • C centers on you</p></div>
+          <div class="step"><span>2</span><h4>Select</h4><p>Click a territory you own. Inspect troops, terrain, buildings</p></div>
+          <div class="step"><span>3</span><h4>Economy</h4><p>Troops & Gold grow per territory. Cities ↑ pop, Factories ↑ army, Ports ↑ trade + navy</p></div>
+          <div class="step"><span>4</span><h4>Attack Ratio</h4><p>Slider chooses % of troops to commit. More = stronger but leaves you exposed. T/Y keys</p></div>
+          <div class="step"><span>5</span><h4>Attack</h4><p>With source selected, click a neighbor enemy/neutral. Attack travels, then battles. Reinforce to help</p></div>
+          <div class="step"><span>6</span><h4>Build</h4><p>On owned land, build City / Factory / Port (coastal) / Defense Post / Silo. Takes time, costs gold</p></div>
+          <div class="step"><span>7</span><h4>Naval</h4><p>Ports enable sea assaults to any coastal foe. Watch the ship cross water</p></div>
+          <div class="step"><span>8</span><h4>Diplomacy</h4><p>Ally to block friendly fire. Break to betray. Use quick chat</p></div>
+          <div class="step"><span>9</span><h4>Win</h4><p>Domination: control ~60% of land. Or survive timer / elimination</p></div>
+        </div>
+        <div class="tutorial-demo"><button id="btnStartTutorial" class="btn primary">Start Solo Tutorial Match</button></div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="screen-settings" class="screen">
+      <div class="panel">
+        <div class="panel-head"><h2>Settings</h2><button class="btn ghost" id="btnSettingsBack">← Back</button></div>
+        <div class="settings-grid">
+          <label>Music Volume <input type="range" id="volMusic" min="0" max="100" value="32"></label>
+          <label>SFX Volume <input type="range" id="volSfx" min="0" max="100" value="55"></label>
+          <label><input type="checkbox" id="chkParticles" checked> Particles</label>
+          <label><input type="checkbox" id="chkShake" checked> Subtle Effects</label>
+          <label><input type="checkbox" id="chkReduceMotion"> Reduce Motion</label>
+          <label>UI Scale <select id="selScale"><option value="0.9">Small</option><option value="1" selected>Normal</option><option value="1.08">Large</option></select></label>
+          <label>Graphics <select id="selQuality"><option>High</option><option>Balanced</option><option>Low</option></select></label>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODALS -->
+  <div id="modalSolo" class="modal hidden">
+    <div class="modal-card">
+      <h3>Solo vs AI</h3>
+      <label>Map</label><select id="soloMap"></select>
+      <div class="row">
+        <label>AI Count <select id="soloBots"><option>1</option><option selected>3</option><option>5</option><option>7</option></select></label>
+        <label>Difficulty <select id="soloDiff"><option>easy</option><option selected>medium</option><option>hard</option><option>extreme</option><option>insane</option></select></label>
+      </div>
+      <div class="row">
+        <label>Victory % <select id="soloVictory"><option>50</option><option selected>60</option><option>75</option></select></label>
+        <label>Timer (min, 0=off) <select id="soloTimer"><option>0</option><option>10</option><option>20</option></select></label>
+      </div>
+      <label><input type="checkbox" id="soloFog"> Fog of War</label>
+      <label><input type="checkbox" id="soloSuper" checked> Superweapons</label>
+      <div class="row">
+        <button id="btnSoloCancel" class="btn ghost">Cancel</button>
+        <button id="btnSoloStart" class="btn primary">Launch Match</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalCreate" class="modal hidden">
+    <div class="modal-card">
+      <h3>Create Lobby</h3>
+      <input id="createName" placeholder="Lobby name — e.g. Hormuz Showdown">
+      <label>Map</label><select id="createMap"></select>
+      <div class="row">
+        <label>Max Players <select id="createMax"><option>4</option><option selected>8</option><option>12</option></select></label>
+        <label>Bots <select id="createBots"><option>0</option><option>1</option><option selected>2</option><option>4</option></select></label>
+      </div>
+      <label>Bot Difficulty <select id="createDiff"><option>easy</option><option selected>medium</option><option>hard</option><option>extreme</option></select></label>
+      <div class="row">
+        <label>Victory <select id="createVictory"><option value="domination" selected>Domination 60%</option><option value="elimination">Elimination</option><option value="domination">Territory 50%</option></select></label>
+        <label>Private <input type="checkbox" id="createPrivate"></label>
+      </div>
+      <div class="row">
+        <button id="btnCreateCancel" class="btn ghost">Cancel</button>
+        <button id="btnCreateConfirm" class="btn primary">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+</div>
+<script src="/static/game.js"></script>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/static/sw.js').catch(()=>{});
+}
+</script>
+</body>
+</html>

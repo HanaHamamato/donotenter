@@ -1,0 +1,802 @@
+{
+  "id": "usa",
+  "name": "USA",
+  "width": 1000,
+  "height": 600,
+  "territories": [
+    {
+      "id": "wa",
+      "name": "Washington",
+      "x": 80,
+      "y": 60,
+      "neighbors": [
+        "or",
+        "id",
+        "ca"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "or",
+      "name": "Oregon",
+      "x": 75,
+      "y": 110,
+      "neighbors": [
+        "wa",
+        "ca",
+        "nv",
+        "id"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ca",
+      "name": "California",
+      "x": 65,
+      "y": 180,
+      "neighbors": [
+        "or",
+        "nv",
+        "az",
+        "wa"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "nv",
+      "name": "Nevada",
+      "x": 110,
+      "y": 160,
+      "neighbors": [
+        "or",
+        "ca",
+        "az",
+        "ut",
+        "id"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "az",
+      "name": "Arizona",
+      "x": 125,
+      "y": 230,
+      "neighbors": [
+        "ca",
+        "nv",
+        "ut",
+        "nm",
+        "tx",
+        "co"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "id",
+      "name": "Idaho",
+      "x": 135,
+      "y": 80,
+      "neighbors": [
+        "wa",
+        "or",
+        "nv",
+        "ut",
+        "wy",
+        "mt"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "mt",
+      "name": "Montana",
+      "x": 170,
+      "y": 55,
+      "neighbors": [
+        "id",
+        "wy",
+        "sd",
+        "nd"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "wy",
+      "name": "Wyoming",
+      "x": 170,
+      "y": 110,
+      "neighbors": [
+        "id",
+        "mt",
+        "sd",
+        "ne",
+        "co",
+        "ut"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ut",
+      "name": "Utah",
+      "x": 130,
+      "y": 160,
+      "neighbors": [
+        "nv",
+        "id",
+        "wy",
+        "co",
+        "az",
+        "nm"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "co",
+      "name": "Colorado",
+      "x": 175,
+      "y": 175,
+      "neighbors": [
+        "wy",
+        "ne",
+        "ks",
+        "nm",
+        "ut",
+        "az",
+        "tx",
+        "ok"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "nm",
+      "name": "New Mexico",
+      "x": 155,
+      "y": 235,
+      "neighbors": [
+        "az",
+        "ut",
+        "co",
+        "tx",
+        "ks",
+        "ok"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "tx",
+      "name": "Texas",
+      "x": 210,
+      "y": 260,
+      "neighbors": [
+        "nm",
+        "co",
+        "ks",
+        "ok",
+        "la",
+        "az",
+        "ar"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "nd",
+      "name": "North Dakota",
+      "x": 210,
+      "y": 60,
+      "neighbors": [
+        "mt",
+        "sd",
+        "mn"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "sd",
+      "name": "South Dakota",
+      "x": 215,
+      "y": 95,
+      "neighbors": [
+        "nd",
+        "mt",
+        "wy",
+        "ne",
+        "mn",
+        "ia"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ne",
+      "name": "Nebraska",
+      "x": 215,
+      "y": 145,
+      "neighbors": [
+        "sd",
+        "wy",
+        "co",
+        "ks",
+        "ia",
+        "mo"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ks",
+      "name": "Kansas",
+      "x": 225,
+      "y": 185,
+      "neighbors": [
+        "ne",
+        "co",
+        "nm",
+        "tx",
+        "ok",
+        "mo",
+        "ia"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ok",
+      "name": "Oklahoma",
+      "x": 235,
+      "y": 225,
+      "neighbors": [
+        "ks",
+        "tx",
+        "nm",
+        "co",
+        "ar",
+        "mo"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "mn",
+      "name": "Minnesota",
+      "x": 260,
+      "y": 70,
+      "neighbors": [
+        "nd",
+        "sd",
+        "ia",
+        "wi"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ia",
+      "name": "Iowa",
+      "x": 260,
+      "y": 130,
+      "neighbors": [
+        "mn",
+        "sd",
+        "ne",
+        "ks",
+        "mo",
+        "wi",
+        "il"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "mo",
+      "name": "Missouri",
+      "x": 275,
+      "y": 175,
+      "neighbors": [
+        "ia",
+        "ne",
+        "ks",
+        "ok",
+        "ar",
+        "il",
+        "tn",
+        "ky"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ar",
+      "name": "Arkansas",
+      "x": 285,
+      "y": 215,
+      "neighbors": [
+        "mo",
+        "ok",
+        "tx",
+        "la",
+        "ms",
+        "tn"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "la",
+      "name": "Louisiana",
+      "x": 250,
+      "y": 270,
+      "neighbors": [
+        "tx",
+        "ar",
+        "ms"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "wi",
+      "name": "Wisconsin",
+      "x": 295,
+      "y": 95,
+      "neighbors": [
+        "mn",
+        "ia",
+        "il",
+        "mi"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "il",
+      "name": "Illinois",
+      "x": 295,
+      "y": 145,
+      "neighbors": [
+        "wi",
+        "ia",
+        "mo",
+        "tn",
+        "ky",
+        "in",
+        "mi"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "mi",
+      "name": "Michigan",
+      "x": 330,
+      "y": 95,
+      "neighbors": [
+        "wi",
+        "il",
+        "in",
+        "oh"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "in",
+      "name": "Indiana",
+      "x": 325,
+      "y": 150,
+      "neighbors": [
+        "mi",
+        "il",
+        "ky",
+        "oh"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "oh",
+      "name": "Ohio",
+      "x": 355,
+      "y": 145,
+      "neighbors": [
+        "mi",
+        "in",
+        "ky",
+        "wv",
+        "pa",
+        "va"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ky",
+      "name": "Kentucky",
+      "x": 320,
+      "y": 185,
+      "neighbors": [
+        "il",
+        "in",
+        "oh",
+        "wv",
+        "tn",
+        "mo",
+        "va"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "tn",
+      "name": "Tennessee",
+      "x": 315,
+      "y": 210,
+      "neighbors": [
+        "mo",
+        "ky",
+        "wv",
+        "va",
+        "nc",
+        "ga",
+        "al",
+        "ms",
+        "ar",
+        "il",
+        "sc"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ms",
+      "name": "Mississippi",
+      "x": 285,
+      "y": 250,
+      "neighbors": [
+        "ar",
+        "tn",
+        "al",
+        "la"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "al",
+      "name": "Alabama",
+      "x": 315,
+      "y": 250,
+      "neighbors": [
+        "tn",
+        "ga",
+        "fl",
+        "ms"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ga",
+      "name": "Georgia",
+      "x": 345,
+      "y": 240,
+      "neighbors": [
+        "tn",
+        "nc",
+        "sc",
+        "fl",
+        "al"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "fl",
+      "name": "Florida",
+      "x": 365,
+      "y": 300,
+      "neighbors": [
+        "ga",
+        "al"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "sc",
+      "name": "South Carolina",
+      "x": 370,
+      "y": 210,
+      "neighbors": [
+        "nc",
+        "ga",
+        "tn"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "nc",
+      "name": "North Carolina",
+      "x": 370,
+      "y": 185,
+      "neighbors": [
+        "tn",
+        "va",
+        "sc",
+        "ga"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "va",
+      "name": "Virginia",
+      "x": 370,
+      "y": 160,
+      "neighbors": [
+        "wv",
+        "oh",
+        "pa",
+        "nc",
+        "tn",
+        "ky",
+        "md"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "wv",
+      "name": "West Virginia",
+      "x": 350,
+      "y": 165,
+      "neighbors": [
+        "oh",
+        "pa",
+        "va",
+        "ky",
+        "tn",
+        "md"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "pa",
+      "name": "Pennsylvania",
+      "x": 365,
+      "y": 125,
+      "neighbors": [
+        "oh",
+        "wv",
+        "va",
+        "md",
+        "ny",
+        "nj",
+        "de"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ny",
+      "name": "New York",
+      "x": 385,
+      "y": 95,
+      "neighbors": [
+        "pa",
+        "nj",
+        "vt",
+        "ma",
+        "ct"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "nj",
+      "name": "New Jersey",
+      "x": 390,
+      "y": 125,
+      "neighbors": [
+        "pa",
+        "ny",
+        "de",
+        "md"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "de",
+      "name": "Delaware",
+      "x": 395,
+      "y": 145,
+      "neighbors": [
+        "nj",
+        "md",
+        "pa"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "md",
+      "name": "Maryland",
+      "x": 385,
+      "y": 150,
+      "neighbors": [
+        "pa",
+        "nj",
+        "de",
+        "va",
+        "wv"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "vt",
+      "name": "Vermont",
+      "x": 405,
+      "y": 85,
+      "neighbors": [
+        "ny",
+        "ma",
+        "nh",
+        "me"
+      ],
+      "terrain": "forest",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "nh",
+      "name": "New Hampshire",
+      "x": 415,
+      "y": 80,
+      "neighbors": [
+        "vt",
+        "me",
+        "ma"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "me",
+      "name": "Maine",
+      "x": 425,
+      "y": 65,
+      "neighbors": [
+        "nh",
+        "vt"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ma",
+      "name": "Massachusetts",
+      "x": 410,
+      "y": 105,
+      "neighbors": [
+        "vt",
+        "nh",
+        "ri",
+        "ct",
+        "ny"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ri",
+      "name": "Rhode Island",
+      "x": 415,
+      "y": 115,
+      "neighbors": [
+        "ma",
+        "ct"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ct",
+      "name": "Connecticut",
+      "x": 405,
+      "y": 115,
+      "neighbors": [
+        "ny",
+        "ma",
+        "ri"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ak",
+      "name": "Alaska",
+      "x": 60,
+      "y": 340,
+      "neighbors": [
+        "hi"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "hi",
+      "name": "Hawaii",
+      "x": 120,
+      "y": 360,
+      "neighbors": [
+        "ak"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    }
+  ]
+}

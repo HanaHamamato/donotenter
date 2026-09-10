@@ -1,0 +1,498 @@
+{
+  "id": "iran",
+  "name": "Iran",
+  "width": 1000,
+  "height": 600,
+  "territories": [
+    {
+      "id": "azarbayjan_w",
+      "name": "West Azerbaijan",
+      "x": 150,
+      "y": 80,
+      "neighbors": [
+        "azarbayjan_e",
+        "kordestan",
+        "zanjan",
+        "turkey"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "azarbayjan_e",
+      "name": "East Azerbaijan",
+      "x": 220,
+      "y": 90,
+      "neighbors": [
+        "azarbayjan_w",
+        "ardabil",
+        "zanjan"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ardabil",
+      "name": "Ardabil",
+      "x": 270,
+      "y": 85,
+      "neighbors": [
+        "azarbayjan_e",
+        "gilan",
+        "zanjan"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "gilan",
+      "name": "Gilan",
+      "x": 280,
+      "y": 125,
+      "neighbors": [
+        "ardabil",
+        "mazandaran",
+        "zanjan",
+        "ardabil",
+        "qazvin"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "mazandaran",
+      "name": "Mazandaran",
+      "x": 360,
+      "y": 125,
+      "neighbors": [
+        "gilan",
+        "golestan",
+        "tehran",
+        "zanjan",
+        "semnan"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "golestan",
+      "name": "Golestan",
+      "x": 430,
+      "y": 120,
+      "neighbors": [
+        "mazandaran",
+        "khorasan_n",
+        "semnan"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "khorasan_n",
+      "name": "North Khorasan",
+      "x": 520,
+      "y": 110,
+      "neighbors": [
+        "golestan",
+        "khorasan_r",
+        "semnan"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "khorasan_r",
+      "name": "Razavi Khorasan",
+      "x": 620,
+      "y": 150,
+      "neighbors": [
+        "khorasan_n",
+        "khorasan_s",
+        "semnan",
+        "yazd",
+        "afghan"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "khorasan_s",
+      "name": "South Khorasan",
+      "x": 650,
+      "y": 230,
+      "neighbors": [
+        "khorasan_r",
+        "yazd",
+        "kerman",
+        "sistan"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "sistan",
+      "name": "Sistan & Baluchestan",
+      "x": 700,
+      "y": 320,
+      "neighbors": [
+        "khorasan_s",
+        "kerman",
+        "hormozgan",
+        "pakistan"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "kerman",
+      "name": "Kerman",
+      "x": 560,
+      "y": 320,
+      "neighbors": [
+        "yazd",
+        "khorasan_s",
+        "sistan",
+        "hormozgan",
+        "fars"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "hormozgan",
+      "name": "Hormozgan",
+      "x": 580,
+      "y": 420,
+      "neighbors": [
+        "kerman",
+        "fars",
+        "bushehr",
+        "sistan"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "fars",
+      "name": "Fars",
+      "x": 450,
+      "y": 370,
+      "neighbors": [
+        "yazd",
+        "kerman",
+        "hormozgan",
+        "bushehr",
+        "kohgiluyeh",
+        "isfahan"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "bushehr",
+      "name": "Bushehr",
+      "x": 380,
+      "y": 380,
+      "neighbors": [
+        "fars",
+        "hormozgan",
+        "khuzestan",
+        "kohgiluyeh"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "khuzestan",
+      "name": "Khuzestan",
+      "x": 250,
+      "y": 340,
+      "neighbors": [
+        "ilam",
+        "lorestan",
+        "kohgiluyeh",
+        "bushehr",
+        "iraq"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ilam",
+      "name": "Ilam",
+      "x": 180,
+      "y": 280,
+      "neighbors": [
+        "kermanshah",
+        "khuzestan",
+        "lorestan"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "kermanshah",
+      "name": "Kermanshah",
+      "x": 160,
+      "y": 220,
+      "neighbors": [
+        "kordestan",
+        "ilam",
+        "lorestan",
+        "hamadan"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "kordestan",
+      "name": "Kordestan",
+      "x": 150,
+      "y": 160,
+      "neighbors": [
+        "azarbayjan_w",
+        "kermanshah",
+        "hamadan",
+        "zanjan"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "zanjan",
+      "name": "Zanjan",
+      "x": 210,
+      "y": 150,
+      "neighbors": [
+        "azarbayjan_w",
+        "azarbayjan_e",
+        "ardabil",
+        "gilan",
+        "mazandaran",
+        "qazvin",
+        "hamadan",
+        "kordestan"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "hamadan",
+      "name": "Hamadan",
+      "x": 190,
+      "y": 200,
+      "neighbors": [
+        "kordestan",
+        "zanjan",
+        "qazvin",
+        "markazi",
+        "kermanshah",
+        "lorestan"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "qazvin",
+      "name": "Qazvin",
+      "x": 260,
+      "y": 170,
+      "neighbors": [
+        "zanjan",
+        "gilan",
+        "tehran",
+        "hamadan",
+        "markazi",
+        "alborz"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "tehran",
+      "name": "Tehran",
+      "x": 330,
+      "y": 175,
+      "neighbors": [
+        "qazvin",
+        "mazandaran",
+        "semnan",
+        "markazi",
+        "qom",
+        "alborz"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "markazi",
+      "name": "Markazi",
+      "x": 260,
+      "y": 220,
+      "neighbors": [
+        "hamadan",
+        "qazvin",
+        "tehran",
+        "qom",
+        "lorestan",
+        "isfahan"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "qom",
+      "name": "Qom",
+      "x": 320,
+      "y": 220,
+      "neighbors": [
+        "tehran",
+        "markazi",
+        "semnan",
+        "isfahan"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "semnan",
+      "name": "Semnan",
+      "x": 420,
+      "y": 175,
+      "neighbors": [
+        "tehran",
+        "mazandaran",
+        "golestan",
+        "khorasan_n",
+        "khorasan_r",
+        "qom",
+        "isfahan",
+        "yazd"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "isfahan",
+      "name": "Isfahan",
+      "x": 360,
+      "y": 280,
+      "neighbors": [
+        "markazi",
+        "qom",
+        "semnan",
+        "yazd",
+        "fars",
+        "kohgiluyeh",
+        "lorestan",
+        "chaharmahal"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "yazd",
+      "name": "Yazd",
+      "x": 480,
+      "y": 260,
+      "neighbors": [
+        "semnan",
+        "khorasan_r",
+        "khorasan_s",
+        "kerman",
+        "fars",
+        "isfahan"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "lorestan",
+      "name": "Lorestan",
+      "x": 210,
+      "y": 250,
+      "neighbors": [
+        "hamadan",
+        "markazi",
+        "isfahan",
+        "chaharmahal",
+        "khuzestan",
+        "ilam",
+        "kermanshah"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "chaharmahal",
+      "name": "Chaharmahal",
+      "x": 300,
+      "y": 300,
+      "neighbors": [
+        "lorestan",
+        "isfahan",
+        "kohgiluyeh"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "kohgiluyeh",
+      "name": "Kohgiluyeh",
+      "x": 340,
+      "y": 340,
+      "neighbors": [
+        "chaharmahal",
+        "isfahan",
+        "fars",
+        "bushehr",
+        "khuzestan"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "alborz",
+      "name": "Alborz",
+      "x": 310,
+      "y": 155,
+      "neighbors": [
+        "qazvin",
+        "tehran"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    }
+  ]
+}

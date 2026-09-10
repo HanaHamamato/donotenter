@@ -1,0 +1,1100 @@
+{
+  "id": "big_world",
+  "name": "Big World",
+  "width": 1000,
+  "height": 600,
+  "territories": [
+    {
+      "id": "alaska",
+      "name": "Alaska",
+      "x": 45,
+      "y": 85,
+      "neighbors": [
+        "canada_west_a",
+        "canada_west_b",
+        "usa_west_a",
+        "usa_west_b",
+        "russia_east_a",
+        "russia_east_b",
+        "russia_east_c"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "greenland",
+      "name": "Greenland",
+      "x": 300,
+      "y": 65,
+      "neighbors": [
+        "canada_east_a",
+        "canada_east_b",
+        "scandinavia"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "mexico",
+      "name": "Mexico",
+      "x": 115,
+      "y": 275,
+      "neighbors": [
+        "usa_west_a",
+        "usa_west_b",
+        "usa_central_a",
+        "usa_central_b",
+        "panama"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "panama",
+      "name": "Central America",
+      "x": 150,
+      "y": 310,
+      "neighbors": [
+        "mexico",
+        "colombia"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "colombia",
+      "name": "Colombia",
+      "x": 180,
+      "y": 345,
+      "neighbors": [
+        "panama",
+        "brazil_north_a",
+        "brazil_north_b",
+        "peru"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "peru",
+      "name": "Peru-Chile",
+      "x": 180,
+      "y": 470,
+      "neighbors": [
+        "colombia",
+        "brazil_south_a",
+        "brazil_south_b",
+        "argentina",
+        "brazil_north_a",
+        "brazil_north_b"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "argentina",
+      "name": "Argentina",
+      "x": 225,
+      "y": 525,
+      "neighbors": [
+        "brazil_south_a",
+        "brazil_south_b",
+        "peru"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "uk",
+      "name": "United Kingdom",
+      "x": 430,
+      "y": 150,
+      "neighbors": [
+        "france",
+        "germany",
+        "scandinavia",
+        "ireland"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ireland",
+      "name": "Ireland",
+      "x": 415,
+      "y": 140,
+      "neighbors": [
+        "uk"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "france",
+      "name": "France",
+      "x": 435,
+      "y": 195,
+      "neighbors": [
+        "uk",
+        "germany",
+        "spain",
+        "italy"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "spain",
+      "name": "Spain",
+      "x": 415,
+      "y": 225,
+      "neighbors": [
+        "france",
+        "germany"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "germany",
+      "name": "Germany",
+      "x": 470,
+      "y": 170,
+      "neighbors": [
+        "uk",
+        "france",
+        "spain",
+        "poland",
+        "italy",
+        "scandinavia"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "poland",
+      "name": "Poland",
+      "x": 495,
+      "y": 165,
+      "neighbors": [
+        "germany",
+        "russia_west_a",
+        "russia_west_b",
+        "italy",
+        "balkans"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "italy",
+      "name": "Italy",
+      "x": 485,
+      "y": 220,
+      "neighbors": [
+        "france",
+        "germany",
+        "poland",
+        "balkans",
+        "turkey",
+        "libya"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "balkans",
+      "name": "Balkans",
+      "x": 505,
+      "y": 205,
+      "neighbors": [
+        "italy",
+        "poland",
+        "russia_west_a",
+        "russia_west_b",
+        "turkey"
+      ],
+      "terrain": "mountain",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "scandinavia",
+      "name": "Scandinavia",
+      "x": 470,
+      "y": 95,
+      "neighbors": [
+        "uk",
+        "germany",
+        "russia_west_a",
+        "russia_west_b",
+        "greenland"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "turkey",
+      "name": "Turkey",
+      "x": 540,
+      "y": 230,
+      "neighbors": [
+        "balkans",
+        "russia_west_a",
+        "russia_west_b",
+        "syria",
+        "iran",
+        "egypt",
+        "italy"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "syria",
+      "name": "Syria-Iraq",
+      "x": 555,
+      "y": 255,
+      "neighbors": [
+        "turkey",
+        "iran",
+        "saudi",
+        "egypt"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "iran",
+      "name": "Iran",
+      "x": 585,
+      "y": 270,
+      "neighbors": [
+        "turkey",
+        "syria",
+        "saudi",
+        "pakistan",
+        "kazakhstan",
+        "caspian"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "saudi",
+      "name": "Saudi Arabia",
+      "x": 555,
+      "y": 310,
+      "neighbors": [
+        "syria",
+        "iran",
+        "egypt",
+        "east_africa"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "egypt",
+      "name": "Egypt",
+      "x": 500,
+      "y": 285,
+      "neighbors": [
+        "turkey",
+        "syria",
+        "saudi",
+        "libya",
+        "east_africa"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "libya",
+      "name": "Libya",
+      "x": 460,
+      "y": 275,
+      "neighbors": [
+        "egypt",
+        "west_africa",
+        "central_africa",
+        "italy"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "west_africa",
+      "name": "Nigeria",
+      "x": 425,
+      "y": 340,
+      "neighbors": [
+        "libya",
+        "central_africa",
+        "east_africa"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "central_africa",
+      "name": "Congo",
+      "x": 480,
+      "y": 385,
+      "neighbors": [
+        "west_africa",
+        "libya",
+        "east_africa",
+        "south_africa"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "east_africa",
+      "name": "Ethiopia-Kenya",
+      "x": 530,
+      "y": 370,
+      "neighbors": [
+        "egypt",
+        "saudi",
+        "central_africa",
+        "south_africa",
+        "west_africa"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "south_africa",
+      "name": "South Africa",
+      "x": 500,
+      "y": 480,
+      "neighbors": [
+        "central_africa",
+        "east_africa"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "kazakhstan",
+      "name": "Kazakhstan",
+      "x": 605,
+      "y": 185,
+      "neighbors": [
+        "russia_west_b",
+        "china_west_a",
+        "pakistan",
+        "russia_west_a",
+        "mongolia",
+        "china_west_b",
+        "iran",
+        "russia_east_a",
+        "russia_east_b",
+        "russia_east_c"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "pakistan",
+      "name": "Pakistan",
+      "x": 590,
+      "y": 255,
+      "neighbors": [
+        "iran",
+        "kazakhstan",
+        "india_north_a",
+        "india_north_b",
+        "china_west_a",
+        "china_west_b"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "india_south",
+      "name": "Mumbai",
+      "x": 635,
+      "y": 335,
+      "neighbors": [
+        "india_north_a",
+        "india_north_b",
+        "southeast_asia",
+        "malaysia"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "mongolia",
+      "name": "Mongolia",
+      "x": 680,
+      "y": 180,
+      "neighbors": [
+        "china_west_a",
+        "china_west_b",
+        "china_east_a",
+        "kazakhstan",
+        "russia_east_a",
+        "russia_east_b",
+        "korea",
+        "china_east_b",
+        "russia_east_c"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "korea",
+      "name": "Korea",
+      "x": 735,
+      "y": 255,
+      "neighbors": [
+        "mongolia",
+        "china_east_a",
+        "china_east_b",
+        "japan"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "japan",
+      "name": "Japan",
+      "x": 785,
+      "y": 235,
+      "neighbors": [
+        "korea",
+        "china_east_a",
+        "china_east_b",
+        "russia_east_a",
+        "russia_east_b",
+        "russia_east_c",
+        "philippines"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "southeast_asia",
+      "name": "Thailand",
+      "x": 670,
+      "y": 330,
+      "neighbors": [
+        "india_north_a",
+        "india_north_b",
+        "india_south",
+        "china_east_a",
+        "china_east_b",
+        "malaysia",
+        "philippines"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "malaysia",
+      "name": "Malaysia-Indonesia",
+      "x": 685,
+      "y": 385,
+      "neighbors": [
+        "india_south",
+        "southeast_asia",
+        "philippines",
+        "australia_west_a",
+        "australia_west_b"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "philippines",
+      "name": "Philippines",
+      "x": 735,
+      "y": 340,
+      "neighbors": [
+        "japan",
+        "southeast_asia",
+        "malaysia",
+        "australia_east_a",
+        "australia_east_b"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "new_zealand",
+      "name": "New Zealand",
+      "x": 855,
+      "y": 535,
+      "neighbors": [
+        "australia_east_a",
+        "australia_east_b"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "usa_west_a",
+      "name": "California",
+      "x": 70,
+      "y": 190,
+      "neighbors": [
+        "usa_west_b",
+        "usa_central_a",
+        "usa_central_b",
+        "canada_west_a",
+        "canada_west_b",
+        "mexico",
+        "alaska"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "usa_west_b",
+      "name": "Nevada",
+      "x": 85,
+      "y": 210,
+      "neighbors": [
+        "usa_west_a",
+        "usa_central_a",
+        "usa_central_b",
+        "canada_west_a",
+        "canada_west_b",
+        "mexico",
+        "alaska"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "usa_central_a",
+      "name": "Texas",
+      "x": 125,
+      "y": 235,
+      "neighbors": [
+        "usa_central_b",
+        "usa_west_a",
+        "usa_west_b",
+        "usa_east_a",
+        "usa_east_b",
+        "canada_east_a",
+        "canada_east_b",
+        "mexico"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "usa_central_b",
+      "name": "Midwest",
+      "x": 145,
+      "y": 205,
+      "neighbors": [
+        "usa_central_a",
+        "usa_west_a",
+        "usa_west_b",
+        "usa_east_a",
+        "usa_east_b",
+        "canada_east_a",
+        "canada_east_b",
+        "mexico"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "usa_east_a",
+      "name": "Florida",
+      "x": 185,
+      "y": 225,
+      "neighbors": [
+        "usa_east_b",
+        "usa_central_a",
+        "usa_central_b",
+        "canada_east_a",
+        "canada_east_b"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "usa_east_b",
+      "name": "New York",
+      "x": 195,
+      "y": 165,
+      "neighbors": [
+        "usa_east_a",
+        "usa_central_a",
+        "usa_central_b",
+        "canada_east_a",
+        "canada_east_b"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "canada_west_a",
+      "name": "Yukon",
+      "x": 80,
+      "y": 75,
+      "neighbors": [
+        "canada_west_b",
+        "alaska",
+        "canada_east_a",
+        "canada_east_b",
+        "usa_west_a",
+        "usa_west_b"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "canada_west_b",
+      "name": "Alberta",
+      "x": 100,
+      "y": 100,
+      "neighbors": [
+        "canada_west_a",
+        "alaska",
+        "canada_east_a",
+        "canada_east_b",
+        "usa_west_a",
+        "usa_west_b"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "canada_east_a",
+      "name": "Ontario",
+      "x": 165,
+      "y": 85,
+      "neighbors": [
+        "canada_east_b",
+        "canada_west_a",
+        "canada_west_b",
+        "usa_central_a",
+        "usa_central_b",
+        "usa_east_a",
+        "usa_east_b",
+        "greenland"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "canada_east_b",
+      "name": "Quebec",
+      "x": 185,
+      "y": 105,
+      "neighbors": [
+        "canada_east_a",
+        "canada_west_a",
+        "canada_west_b",
+        "usa_central_a",
+        "usa_central_b",
+        "usa_east_a",
+        "usa_east_b",
+        "greenland"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "russia_west_a",
+      "name": "Moscow",
+      "x": 550,
+      "y": 135,
+      "neighbors": [
+        "russia_west_b",
+        "poland",
+        "kazakhstan",
+        "balkans",
+        "scandinavia",
+        "turkey",
+        "russia_east_a",
+        "russia_east_b"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "russia_west_b",
+      "name": "Volgograd",
+      "x": 575,
+      "y": 165,
+      "neighbors": [
+        "kazakhstan",
+        "russia_west_a",
+        "turkey",
+        "poland",
+        "balkans",
+        "scandinavia",
+        "russia_east_a",
+        "russia_east_b",
+        "russia_east_c"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "russia_east_a",
+      "name": "Yakutia",
+      "x": 710,
+      "y": 110,
+      "neighbors": [
+        "russia_east_b",
+        "mongolia",
+        "russia_east_c",
+        "kazakhstan",
+        "china_east_a",
+        "russia_west_b",
+        "japan",
+        "russia_west_a",
+        "alaska"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "russia_east_b",
+      "name": "Khabarovsk",
+      "x": 760,
+      "y": 145,
+      "neighbors": [
+        "russia_east_c",
+        "russia_east_a",
+        "mongolia",
+        "japan",
+        "china_east_a",
+        "china_east_b",
+        "kazakhstan",
+        "russia_west_b",
+        "alaska",
+        "russia_west_a"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "russia_east_c",
+      "name": "Kamchatka",
+      "x": 795,
+      "y": 115,
+      "neighbors": [
+        "russia_east_b",
+        "russia_east_a",
+        "japan",
+        "mongolia",
+        "china_east_a",
+        "china_east_b",
+        "kazakhstan",
+        "russia_west_b",
+        "alaska"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "china_east_a",
+      "name": "Beijing",
+      "x": 695,
+      "y": 240,
+      "neighbors": [
+        "china_west_b",
+        "korea",
+        "china_east_b",
+        "mongolia",
+        "china_west_a",
+        "india_north_b",
+        "india_north_a",
+        "japan",
+        "southeast_asia",
+        "russia_east_a",
+        "russia_east_b",
+        "russia_east_c"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "china_east_b",
+      "name": "Shanghai",
+      "x": 715,
+      "y": 280,
+      "neighbors": [
+        "korea",
+        "china_east_a",
+        "china_west_b",
+        "southeast_asia",
+        "india_north_b",
+        "japan",
+        "india_north_a",
+        "mongolia",
+        "russia_east_b",
+        "russia_east_c",
+        "china_west_a"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "china_west_a",
+      "name": "Xinjiang",
+      "x": 635,
+      "y": 205,
+      "neighbors": [
+        "china_west_b",
+        "kazakhstan",
+        "pakistan",
+        "india_north_a",
+        "india_north_b",
+        "china_east_a",
+        "china_east_b",
+        "mongolia"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "china_west_b",
+      "name": "Tibet",
+      "x": 665,
+      "y": 240,
+      "neighbors": [
+        "china_west_a",
+        "kazakhstan",
+        "pakistan",
+        "india_north_a",
+        "india_north_b",
+        "china_east_a",
+        "china_east_b",
+        "mongolia"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "india_north_a",
+      "name": "Delhi",
+      "x": 615,
+      "y": 275,
+      "neighbors": [
+        "india_north_b",
+        "pakistan",
+        "china_west_a",
+        "china_west_b",
+        "china_east_a",
+        "china_east_b",
+        "india_south",
+        "southeast_asia"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "india_north_b",
+      "name": "Kolkata",
+      "x": 635,
+      "y": 295,
+      "neighbors": [
+        "india_north_a",
+        "pakistan",
+        "china_west_a",
+        "china_west_b",
+        "china_east_a",
+        "china_east_b",
+        "india_south",
+        "southeast_asia"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "brazil_north_a",
+      "name": "Manaus",
+      "x": 240,
+      "y": 375,
+      "neighbors": [
+        "brazil_north_b",
+        "colombia",
+        "brazil_south_a",
+        "brazil_south_b",
+        "peru"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "brazil_north_b",
+      "name": "Recife",
+      "x": 270,
+      "y": 395,
+      "neighbors": [
+        "brazil_north_a",
+        "colombia",
+        "brazil_south_a",
+        "brazil_south_b",
+        "peru"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "brazil_south_a",
+      "name": "Brasilia",
+      "x": 260,
+      "y": 435,
+      "neighbors": [
+        "brazil_south_b",
+        "brazil_north_a",
+        "brazil_north_b",
+        "argentina",
+        "peru"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "brazil_south_b",
+      "name": "Buenos Aires",
+      "x": 235,
+      "y": 505,
+      "neighbors": [
+        "brazil_south_a",
+        "brazil_north_a",
+        "brazil_north_b",
+        "argentina",
+        "peru"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "australia_west_a",
+      "name": "Perth",
+      "x": 720,
+      "y": 475,
+      "neighbors": [
+        "australia_west_b",
+        "malaysia",
+        "australia_east_a",
+        "australia_east_b"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "australia_west_b",
+      "name": "Alice Springs",
+      "x": 750,
+      "y": 495,
+      "neighbors": [
+        "australia_west_a",
+        "malaysia",
+        "australia_east_a",
+        "australia_east_b"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "australia_east_a",
+      "name": "Sydney",
+      "x": 800,
+      "y": 475,
+      "neighbors": [
+        "australia_east_b",
+        "australia_west_a",
+        "australia_west_b",
+        "new_zealand",
+        "philippines"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "australia_east_b",
+      "name": "Queensland",
+      "x": 815,
+      "y": 455,
+      "neighbors": [
+        "australia_east_a",
+        "australia_west_a",
+        "australia_west_b",
+        "new_zealand",
+        "philippines"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    }
+  ]
+}

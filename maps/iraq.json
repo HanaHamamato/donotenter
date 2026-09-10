@@ -1,0 +1,295 @@
+{
+  "id": "iraq",
+  "name": "Iraq",
+  "width": 1000,
+  "height": 600,
+  "territories": [
+    {
+      "id": "dahuk",
+      "name": "Dahuk",
+      "x": 200,
+      "y": 50,
+      "neighbors": [
+        "erbil",
+        "nineveh",
+        "turkey"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "erbil",
+      "name": "Erbil",
+      "x": 300,
+      "y": 80,
+      "neighbors": [
+        "dahuk",
+        "nineveh",
+        "sulaymaniyah",
+        "kirkuk"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "sulaymaniyah",
+      "name": "Sulaymaniyah",
+      "x": 350,
+      "y": 130,
+      "neighbors": [
+        "erbil",
+        "kirkuk",
+        "diyala",
+        "iran"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "nineveh",
+      "name": "Nineveh",
+      "x": 220,
+      "y": 110,
+      "neighbors": [
+        "dahuk",
+        "erbil",
+        "kirkuk",
+        "saladin",
+        "anbar"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "kirkuk",
+      "name": "Kirkuk",
+      "x": 300,
+      "y": 140,
+      "neighbors": [
+        "erbil",
+        "sulaymaniyah",
+        "saladin",
+        "diyala",
+        "nineveh"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "saladin",
+      "name": "Saladin",
+      "x": 280,
+      "y": 190,
+      "neighbors": [
+        "nineveh",
+        "kirkuk",
+        "diyala",
+        "baghdad",
+        "anbar"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "anbar",
+      "name": "Anbar",
+      "x": 150,
+      "y": 210,
+      "neighbors": [
+        "nineveh",
+        "saladin",
+        "baghdad",
+        "karbala",
+        "najaf",
+        "syria",
+        "jordan"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "diyala",
+      "name": "Diyala",
+      "x": 360,
+      "y": 180,
+      "neighbors": [
+        "sulaymaniyah",
+        "kirkuk",
+        "saladin",
+        "baghdad",
+        "wasit",
+        "iran"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "baghdad",
+      "name": "Baghdad",
+      "x": 300,
+      "y": 230,
+      "neighbors": [
+        "saladin",
+        "diyala",
+        "anbar",
+        "karbala",
+        "babil",
+        "wasit"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "karbala",
+      "name": "Karbala",
+      "x": 270,
+      "y": 260,
+      "neighbors": [
+        "anbar",
+        "baghdad",
+        "babil",
+        "najaf"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "babil",
+      "name": "Babil",
+      "x": 310,
+      "y": 270,
+      "neighbors": [
+        "baghdad",
+        "karbala",
+        "wasit",
+        "najaf",
+        "qadisiyah"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "wasit",
+      "name": "Wasit",
+      "x": 380,
+      "y": 250,
+      "neighbors": [
+        "diyala",
+        "baghdad",
+        "babil",
+        "qadisiyah",
+        "maysan",
+        "iran"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "najaf",
+      "name": "Najaf",
+      "x": 260,
+      "y": 300,
+      "neighbors": [
+        "karbala",
+        "babil",
+        "qadisiyah",
+        "anbar",
+        "muthanna"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "qadisiyah",
+      "name": "Qadisiyah",
+      "x": 330,
+      "y": 300,
+      "neighbors": [
+        "babil",
+        "wasit",
+        "najaf",
+        "muthanna",
+        "maysan",
+        "dhiqar"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "maysan",
+      "name": "Maysan",
+      "x": 420,
+      "y": 300,
+      "neighbors": [
+        "wasit",
+        "qadisiyah",
+        "dhiqar",
+        "basra",
+        "iran"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "muthanna",
+      "name": "Muthanna",
+      "x": 260,
+      "y": 350,
+      "neighbors": [
+        "najaf",
+        "qadisiyah",
+        "dhiqar",
+        "basra"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "dhiqar",
+      "name": "Dhi Qar",
+      "x": 360,
+      "y": 340,
+      "neighbors": [
+        "qadisiyah",
+        "maysan",
+        "muthanna",
+        "basra"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "basra",
+      "name": "Basra",
+      "x": 400,
+      "y": 380,
+      "neighbors": [
+        "maysan",
+        "dhiqar",
+        "muthanna",
+        "kuwait",
+        "iran"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    }
+  ]
+}

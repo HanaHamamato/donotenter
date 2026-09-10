@@ -1,0 +1,591 @@
+{
+  "id": "africa",
+  "name": "Africa",
+  "width": 1000,
+  "height": 600,
+  "territories": [
+    {
+      "id": "morocco",
+      "name": "Morocco",
+      "x": 280,
+      "y": 80,
+      "neighbors": [
+        "algeria",
+        "spain",
+        "mauritania"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "algeria",
+      "name": "Algeria",
+      "x": 350,
+      "y": 110,
+      "neighbors": [
+        "morocco",
+        "tunisia",
+        "libya",
+        "mali",
+        "mauritania",
+        "niger"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "tunisia",
+      "name": "Tunisia",
+      "x": 400,
+      "y": 100,
+      "neighbors": [
+        "algeria",
+        "libya",
+        "italy"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "libya",
+      "name": "Libya",
+      "x": 430,
+      "y": 140,
+      "neighbors": [
+        "tunisia",
+        "algeria",
+        "egypt",
+        "chad",
+        "niger"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "egypt",
+      "name": "Egypt",
+      "x": 500,
+      "y": 120,
+      "neighbors": [
+        "libya",
+        "sudan",
+        "levant",
+        "saudi",
+        "chad"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "mauritania",
+      "name": "Mauritania",
+      "x": 250,
+      "y": 180,
+      "neighbors": [
+        "morocco",
+        "algeria",
+        "mali",
+        "senegal"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "senegal",
+      "name": "Senegal",
+      "x": 230,
+      "y": 220,
+      "neighbors": [
+        "mauritania",
+        "mali",
+        "guinea"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "mali",
+      "name": "Mali",
+      "x": 320,
+      "y": 200,
+      "neighbors": [
+        "mauritania",
+        "algeria",
+        "niger",
+        "burkina",
+        "senegal",
+        "guinea",
+        "ivory"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "guinea",
+      "name": "Guinea",
+      "x": 240,
+      "y": 260,
+      "neighbors": [
+        "senegal",
+        "mali",
+        "sierra",
+        "ivory"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "sierra",
+      "name": "Sierra Leone",
+      "x": 230,
+      "y": 290,
+      "neighbors": [
+        "guinea",
+        "ivory",
+        "liberia"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ivory",
+      "name": "Ivory Coast",
+      "x": 300,
+      "y": 280,
+      "neighbors": [
+        "guinea",
+        "mali",
+        "burkina",
+        "ghana",
+        "liberia",
+        "sierra"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "burkina",
+      "name": "Burkina Faso",
+      "x": 330,
+      "y": 240,
+      "neighbors": [
+        "mali",
+        "niger",
+        "ghana",
+        "ivory"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "ghana",
+      "name": "Ghana",
+      "x": 340,
+      "y": 290,
+      "neighbors": [
+        "ivory",
+        "burkina",
+        "niger",
+        "nigeria",
+        "benin"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "niger",
+      "name": "Niger",
+      "x": 400,
+      "y": 200,
+      "neighbors": [
+        "algeria",
+        "libya",
+        "chad",
+        "nigeria",
+        "benin",
+        "burkina",
+        "mali",
+        "ghana"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "nigeria",
+      "name": "Nigeria",
+      "x": 380,
+      "y": 300,
+      "neighbors": [
+        "benin",
+        "niger",
+        "chad",
+        "cameroon",
+        "ghana"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "benin",
+      "name": "Benin",
+      "x": 360,
+      "y": 280,
+      "neighbors": [
+        "ghana",
+        "niger",
+        "nigeria"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "chad",
+      "name": "Chad",
+      "x": 460,
+      "y": 220,
+      "neighbors": [
+        "libya",
+        "egypt",
+        "sudan",
+        "car",
+        "cameroon",
+        "nigeria",
+        "niger"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "sudan",
+      "name": "Sudan",
+      "x": 520,
+      "y": 200,
+      "neighbors": [
+        "egypt",
+        "chad",
+        "car",
+        "ethiopia",
+        "eritrea",
+        "kenya",
+        "uganda"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "eritrea",
+      "name": "Eritrea",
+      "x": 560,
+      "y": 190,
+      "neighbors": [
+        "sudan",
+        "ethiopia",
+        "djibouti"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ethiopia",
+      "name": "Ethiopia",
+      "x": 560,
+      "y": 250,
+      "neighbors": [
+        "eritrea",
+        "sudan",
+        "kenya",
+        "somalia",
+        "djibouti"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "djibouti",
+      "name": "Djibouti",
+      "x": 580,
+      "y": 230,
+      "neighbors": [
+        "eritrea",
+        "ethiopia",
+        "somalia"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "somalia",
+      "name": "Somalia",
+      "x": 600,
+      "y": 300,
+      "neighbors": [
+        "ethiopia",
+        "kenya",
+        "djibouti"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "kenya",
+      "name": "Kenya",
+      "x": 540,
+      "y": 320,
+      "neighbors": [
+        "ethiopia",
+        "somalia",
+        "tanzania",
+        "uganda",
+        "sudan"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "uganda",
+      "name": "Uganda",
+      "x": 510,
+      "y": 300,
+      "neighbors": [
+        "sudan",
+        "kenya",
+        "tanzania",
+        "rwanda",
+        "car",
+        "congo"
+      ],
+      "terrain": "forest",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "car",
+      "name": "CAR",
+      "x": 460,
+      "y": 280,
+      "neighbors": [
+        "chad",
+        "sudan",
+        "uganda",
+        "rwanda",
+        "congo",
+        "cameroon"
+      ],
+      "terrain": "forest",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "cameroon",
+      "name": "Cameroon",
+      "x": 400,
+      "y": 320,
+      "neighbors": [
+        "nigeria",
+        "chad",
+        "car",
+        "congo",
+        "gabon"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "gabon",
+      "name": "Gabon",
+      "x": 400,
+      "y": 360,
+      "neighbors": [
+        "cameroon",
+        "congo",
+        "angola"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "congo",
+      "name": "Congo",
+      "x": 470,
+      "y": 340,
+      "neighbors": [
+        "cameroon",
+        "car",
+        "uganda",
+        "rwanda",
+        "tanzania",
+        "angola",
+        "gabon",
+        "zambia"
+      ],
+      "terrain": "forest",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "rwanda",
+      "name": "Rwanda",
+      "x": 520,
+      "y": 320,
+      "neighbors": [
+        "uganda",
+        "car",
+        "congo",
+        "tanzania"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "tanzania",
+      "name": "Tanzania",
+      "x": 540,
+      "y": 360,
+      "neighbors": [
+        "kenya",
+        "uganda",
+        "rwanda",
+        "congo",
+        "angola",
+        "zambia",
+        "mozambique"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "angola",
+      "name": "Angola",
+      "x": 420,
+      "y": 420,
+      "neighbors": [
+        "congo",
+        "tanzania",
+        "zambia",
+        "namibia",
+        "gabon",
+        "botswana"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "zambia",
+      "name": "Zambia",
+      "x": 500,
+      "y": 400,
+      "neighbors": [
+        "tanzania",
+        "congo",
+        "angola",
+        "namibia",
+        "botswana",
+        "mozambique"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "mozambique",
+      "name": "Mozambique",
+      "x": 570,
+      "y": 420,
+      "neighbors": [
+        "tanzania",
+        "zambia",
+        "botswana",
+        "south_africa",
+        "madagascar"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "namibia",
+      "name": "Namibia",
+      "x": 420,
+      "y": 480,
+      "neighbors": [
+        "angola",
+        "zambia",
+        "botswana",
+        "south_africa"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "botswana",
+      "name": "Botswana",
+      "x": 470,
+      "y": 440,
+      "neighbors": [
+        "angola",
+        "zambia",
+        "mozambique",
+        "south_africa",
+        "namibia"
+      ],
+      "terrain": "desert",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "south_africa",
+      "name": "South Africa",
+      "x": 480,
+      "y": 520,
+      "neighbors": [
+        "namibia",
+        "botswana",
+        "mozambique"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "madagascar",
+      "name": "Madagascar",
+      "x": 620,
+      "y": 420,
+      "neighbors": [
+        "mozambique"
+      ],
+      "terrain": "forest",
+      "coastal": true,
+      "isWater": false
+    }
+  ]
+}

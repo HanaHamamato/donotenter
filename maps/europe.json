@@ -1,0 +1,329 @@
+{
+  "id": "europe",
+  "name": "Europe",
+  "width": 1000,
+  "height": 600,
+  "territories": [
+    {
+      "id": "iceland",
+      "name": "Iceland",
+      "x": 300,
+      "y": 80,
+      "neighbors": [
+        "uk",
+        "scandinavia"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "uk",
+      "name": "United Kingdom",
+      "x": 380,
+      "y": 150,
+      "neighbors": [
+        "ireland",
+        "france",
+        "germany",
+        "scandinavia",
+        "iceland",
+        "benelux"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ireland",
+      "name": "Ireland",
+      "x": 360,
+      "y": 155,
+      "neighbors": [
+        "uk"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "france",
+      "name": "France",
+      "x": 400,
+      "y": 230,
+      "neighbors": [
+        "uk",
+        "spain",
+        "germany",
+        "italy",
+        "benelux",
+        "north_africa"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "spain",
+      "name": "Spain",
+      "x": 350,
+      "y": 300,
+      "neighbors": [
+        "france",
+        "portugal",
+        "germany",
+        "north_africa"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "portugal",
+      "name": "Portugal",
+      "x": 330,
+      "y": 310,
+      "neighbors": [
+        "spain"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "benelux",
+      "name": "Benelux",
+      "x": 420,
+      "y": 190,
+      "neighbors": [
+        "uk",
+        "france",
+        "germany"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "germany",
+      "name": "Germany",
+      "x": 450,
+      "y": 190,
+      "neighbors": [
+        "uk",
+        "france",
+        "benelux",
+        "poland",
+        "scandinavia",
+        "italy",
+        "balkans",
+        "spain"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "poland",
+      "name": "Poland",
+      "x": 500,
+      "y": 180,
+      "neighbors": [
+        "germany",
+        "scandinavia",
+        "baltics",
+        "ukraine",
+        "balkans",
+        "russia"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "scandinavia",
+      "name": "Scandinavia",
+      "x": 450,
+      "y": 90,
+      "neighbors": [
+        "iceland",
+        "uk",
+        "germany",
+        "poland",
+        "baltics",
+        "russia"
+      ],
+      "terrain": "arctic",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "baltics",
+      "name": "Baltics",
+      "x": 500,
+      "y": 140,
+      "neighbors": [
+        "scandinavia",
+        "poland",
+        "russia",
+        "ukraine"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "italy",
+      "name": "Italy",
+      "x": 470,
+      "y": 260,
+      "neighbors": [
+        "france",
+        "germany",
+        "balkans",
+        "turkey",
+        "north_africa"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "balkans",
+      "name": "Balkans",
+      "x": 520,
+      "y": 250,
+      "neighbors": [
+        "italy",
+        "germany",
+        "poland",
+        "ukraine",
+        "turkey",
+        "greece",
+        "north_africa"
+      ],
+      "terrain": "mountain",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "greece",
+      "name": "Greece",
+      "x": 530,
+      "y": 290,
+      "neighbors": [
+        "balkans",
+        "turkey"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "ukraine",
+      "name": "Ukraine",
+      "x": 560,
+      "y": 200,
+      "neighbors": [
+        "poland",
+        "baltics",
+        "russia",
+        "turkey",
+        "balkans",
+        "caucasus"
+      ],
+      "terrain": "plains",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "russia",
+      "name": "Western Russia",
+      "x": 600,
+      "y": 130,
+      "neighbors": [
+        "scandinavia",
+        "baltics",
+        "poland",
+        "ukraine",
+        "caucasus",
+        "turkey"
+      ],
+      "terrain": "plains",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "caucasus",
+      "name": "Caucasus",
+      "x": 620,
+      "y": 210,
+      "neighbors": [
+        "russia",
+        "ukraine",
+        "turkey"
+      ],
+      "terrain": "mountain",
+      "coastal": false,
+      "isWater": false
+    },
+    {
+      "id": "turkey",
+      "name": "Turkey",
+      "x": 570,
+      "y": 270,
+      "neighbors": [
+        "greece",
+        "balkans",
+        "ukraine",
+        "russia",
+        "caucasus",
+        "levant",
+        "italy"
+      ],
+      "terrain": "mountain",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "levant",
+      "name": "Levant",
+      "x": 590,
+      "y": 310,
+      "neighbors": [
+        "turkey",
+        "egypt"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "egypt",
+      "name": "Egypt",
+      "x": 580,
+      "y": 360,
+      "neighbors": [
+        "levant"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    },
+    {
+      "id": "north_africa",
+      "name": "North Africa",
+      "x": 380,
+      "y": 360,
+      "neighbors": [
+        "spain",
+        "france",
+        "italy",
+        "balkans"
+      ],
+      "terrain": "desert",
+      "coastal": true,
+      "isWater": false
+    }
+  ]
+}

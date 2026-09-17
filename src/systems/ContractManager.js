@@ -56,7 +56,12 @@ export class ContractManager {
     return Math.round(pay / 5) * 5;
   }
 
-  rollFor(stationId) {
+  /**
+   * Fill a station's board up to the minimum. Pass the player's `train` and the
+   * board is guaranteed to carry at least one job the consist can actually run —
+   * a board full of work you cannot haul is a dead end for the core loop.
+   */
+  rollFor(stationId, train = null) {
     const st = this.stations.get(stationId);
     if (!st) return [];
     const board = this.boards.get(stationId) || [];
@@ -70,12 +75,35 @@ export class ContractManager {
       const c = this._makeOffer(st, candidates);
       if (c) board.push(c);
     }
+    if (train) this._ensureRunnable(st, candidates, board, train);
     this.boards.set(stationId, board);
     return board;
   }
 
-  _makeOffer(st, candidates) {
-    const passenger = this.passengersUnlocked && Math.random() < 0.22;
+  /** Post work that fits the empty cars standing in `train`, if none is up. */
+  _ensureRunnable(st, candidates, board, train) {
+    const empties = new Map();
+    for (const v of train.vehicles || []) {
+      if (v.cargo) continue;
+      empties.set(v.typeKey, (empties.get(v.typeKey) || 0) + 1);
+    }
+    if (!empties.size) return;
+    const fits = (c) => (empties.get(c.carType) || 0) >= c.cars;
+    if (board.some(fits)) return;
+    for (const [carType, n] of empties) {
+      for (let i = 0; i < 8 && board.length < this.maxPerStation + 2; i++) {
+        const c = this._makeOffer(st, candidates, { carType, maxCars: n });
+        if (c && fits(c)) { board.push(c); return; }
+      }
+    }
+  }
+
+  /**
+   * @param {object|null} want  optional {carType, maxCars} to force an offer the
+   *   given consist could haul (used by _ensureRunnable).
+   */
+  _makeOffer(st, candidates, want = null) {
+    const passenger = !want && this.passengersUnlocked && Math.random() < 0.22;
     let cargo;
     let dest;
     if (passenger) {
@@ -83,6 +111,9 @@ export class ContractManager {
       dest = candidates[(Math.random() * candidates.length) | 0];
     } else {
       let produces = st.produces.filter((c) => (st.stock[c] || 0) > 12);
+      if (want?.carType) {
+        produces = produces.filter((c) => (CARGO[c]?.car || 'boxcar') === want.carType);
+      }
       if (!produces.length) return null;
       // Prefer work the yard can actually be loaded for: if a boxcar is standing
       // in the siding, post boxcar cargo. Otherwise the board advertises runs
@@ -120,6 +151,7 @@ export class ContractManager {
     const stock = passenger ? Infinity : (st.stock[cargo] || 0);
     let cars = clamp(1 + Math.floor(Math.random() * (km > 22 ? 4 : 3)), 1, 5);
     if (!passenger) cars = clamp(Math.min(cars, Math.floor(stock / 22)), 1, 5);
+    if (want?.maxCars) cars = clamp(Math.min(cars, want.maxCars), 1, 5);
     const perCar = passenger ? 14 : 26 + Math.random() * 26;
     const tons = Math.round(Math.min(stock, cars * perCar));
     if (tons < 4) return null;
@@ -272,6 +304,16 @@ export class ContractManager {
     return { pay: Math.round(pay), completed, partial, ignored: result.ignored, accepted: result.accepted };
   }
 
+  /** True when at least one open offer matches empty cars in `train`. */
+  _canRunAny(board, train) {
+    const empties = new Map();
+    for (const v of train.vehicles || []) {
+      if (v.cargo) continue;
+      empties.set(v.typeKey, (empties.get(v.typeKey) || 0) + 1);
+    }
+    return board.some((c) => (empties.get(c.carType) || 0) >= c.cars);
+  }
+
   _conditionOf(train, c) {
     let sum = 0;
     let n = 0;
@@ -280,7 +322,7 @@ export class ContractManager {
   }
 
   /** Per-frame: expire offers, fail overdue contracts, top up boards. */
-  update(dt, playerStationId) {
+  update(dt, playerStationId, train = null) {
     const now = this.economy?.workMinutes ?? 0;
     this.rollTimer -= dt;
 
@@ -316,7 +358,10 @@ export class ContractManager {
     }
     if (playerStationId) {
       const b = this.boards.get(playerStationId) || [];
-      if (b.length < this.minPerStation) this.rollFor(playerStationId);
+      // top up whenever the board is thin or nothing on it can be run
+      if (b.length < this.minPerStation || (train && !this._canRunAny(b, train))) {
+        this.rollFor(playerStationId, train);
+      }
     }
   }
 

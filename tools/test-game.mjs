@@ -217,6 +217,52 @@ if (game.ai.trains.length) {
   ok(typeof game.ai.blips()[0].kmh === 'number', 'AI blips are available for the map');
 }
 
+/* ------------------------------------------------- the world keeps moving */
+section('living world');
+{
+  // A board that only advertises work the player cannot haul is a dead end, so
+  // roll every station's board from scratch against a known consist and check
+  // there is always something on it they could actually run.
+  const consist = {
+    vehicles: ['boxcar', 'boxcar', 'hopper', 'flatbed', 'gondola', 'tanker']
+      .map((typeKey) => ({ typeKey, cargo: null })),
+  };
+  const empties = new Map();
+  for (const v of consist.vehicles) empties.set(v.typeKey, (empties.get(v.typeKey) || 0) + 1);
+  let attempts = 0;
+  let runnable = 0;
+  for (const st of game.stations.list) {
+    for (let i = 0; i < 6; i++) {
+      game.contracts.boards.set(st.id, []);
+      const board = game.contracts.rollFor(st.id, consist);
+      if (!board.length) continue;
+      attempts++;
+      if (board.some((c) => (empties.get(c.carType) || 0) >= c.cars)) runnable++;
+    }
+  }
+  ok(attempts > 0 && runnable === attempts,
+    'every station board carries work the consist can run', `${runnable}/${attempts} fresh boards`);
+
+  // Out of sight, out of mind used to mean frozen: an AI train more than 5 km
+  // from the player never moved, so the timetable on the map stood still.
+  const e = game.ai.trains[0];
+  ok(!!e, 'there is an AI train to test');
+  if (e) {
+    game.ai._reset(e);                       // standing start on a running line
+    e.train.speed = 0;
+    e.driver.mode = 'run';
+    const km0 = e.train.tripKm;
+    for (let i = 0; i < 900; i++) { game.ai._cruise(e, 1 / 60); e.train.step(1 / 60); }
+    const run = e.train.tripKm - km0;
+    ok(run > 0.05 || e.driver.mode === 'dwell',
+      'an out-of-sight train still covers ground on cruise control',
+      `${run.toFixed(2)} km in 15 s, mode ${e.driver.mode}`);
+    ok(!!e.train.state?.seg, 'and it is still on the rails afterwards', e.train.state?.seg?.id);
+  }
+  game.contracts.boards.clear();
+  for (const st of game.stations.list) game.contracts.rollFor(st.id, train);
+}
+
 /* -------------------------------------------------------------- signals */
 section('signals');
 {

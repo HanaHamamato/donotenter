@@ -355,15 +355,81 @@ export class AITrainManager {
 
     for (const entry of [...this.trains]) {
       const { train, driver } = entry;
-      // only simulate trains that are anywhere near someone who can see them
-      const near = this._nearPlayer(train, player);
-      if (!near) { train.controls.throttle = 0; continue; }
-      const verdict = driver.update(dt);
+      // Trains nobody can see still have to keep moving, or the timetable on the
+      // map freezes and the world stops feeling like a railway. Out of sight we
+      // run them on a cheap cruise control instead of the full look-ahead brain.
+      const verdict = this._nearPlayer(train, player)
+        ? driver.update(dt)
+        : this._cruise(entry, dt);
       train.step(dt);
       train.placeCars();
       if (verdict === 'reset') this._reset(entry);
       if (train.kmh < 0.4 && driver.mode !== 'dwell' && driver.stuck > 20) this._reset(entry);
     }
+  }
+
+  /**
+   * Out-of-sight driving: hold the line speed, stop for a buffer, dwell at the
+   * destination. No junction throwing, no signal look-ahead, no slip — the
+   * player cannot see any of it, but the train still covers real kilometres on
+   * the real graph, so it is where the map says it is when they arrive.
+   */
+  _cruise(entry, dt) {
+    const { train, driver } = entry;
+    if (!train.state || !driver.dest) return null;
+
+    if (driver.mode === 'dwell') {
+      driver.dwell -= dt;
+      train.controls.throttle = 0;
+      train.setBrake(0.8);
+      if (driver.dwell <= 0) {
+        train.handbrake(false);
+        train.setBrake(0);
+        driver.mode = 'run';
+        driver.lastNodeSet = null;
+        bus.emit('ai:depart', { train, station: driver.dest });
+      }
+      driver.reason = 'dwelling';
+      return null;
+    }
+
+    // arrival check is a graph search, so only do it a couple of times a second
+    driver._cruiseProbe = (driver._cruiseProbe || 0) - dt;
+    if (driver._cruiseProbe <= 0) {
+      driver._cruiseProbe = 0.5;
+      const toDest = this.net.distanceToNode(train.state, driver.dest, 8000);
+      if (toDest != null && toDest < 50) {
+        driver.mode = 'dwell';
+        driver.dwell = DWELL[0] + Math.random() * (DWELL[1] - DWELL[0]);
+        train.controls.throttle = 0;
+        train.setBrake(0.72);
+        train.handbrake(true);
+        bus.emit('ai:dwell', { train, station: driver.dest });
+        return null;
+      }
+    }
+
+    const target = Math.min((train.state.seg.speedLimit ?? 70) * 0.82 * driver.skill, 66);
+    driver.targetKmh = target;
+    driver.reason = 'running (out of sight)';
+    const err = target - train.kmh;
+    train.controls.reverser = 'f';
+    if (err > 1) {
+      train.setBrake(0);
+      train.notch(clamp(Math.round(err / 5) + 1, 1, 8) - train.controls.throttle);
+    } else if (err < -2) {
+      train.notch(-train.controls.throttle);
+      train.setBrake(clamp01(-err / 22));
+    }
+
+    // held up at a buffer or by a train that is itself out of sight: move it on
+    if (train.kmh < 0.6) driver.held += dt; else driver.held = 0;
+    if (driver.held > 70 || train.derail) {
+      driver.held = 0;
+      bus.emit('ai:stuck', { train, reason: train.derail?.reason || 'deadlock' });
+      return 'reset';
+    }
+    return null;
   }
 
   /** Despawn-and-respawn somewhere sensible when an AI train gets into trouble. */
@@ -372,7 +438,9 @@ export class AITrainManager {
     if (!stations.length) return;
     const node = stations[(Math.random() * stations.length) | 0];
     const dests = stations.filter((s) => s.id !== node.id);
-    const state = this.net.stateAtNode(node.id, 0, 120);
+    // a running line, never a siding: branch 0 can face its own buffer stop
+    const branchIdx = Math.max(0, node.branches.findIndex((b) => b.segment?.kind === 'main'));
+    const state = this.net.stateAtNode(node.id, branchIdx, 120);
     entry.train.derail = null;
     entry.train.blocked = null;
     entry.train.speed = 0;

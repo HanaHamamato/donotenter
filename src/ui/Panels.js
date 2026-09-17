@@ -112,7 +112,7 @@ export class Panels {
     left.appendChild(h('h3', { text: 'Contract board' }));
     const board = g.contracts.board(st.id);
     if (!board.length) {
-      g.contracts.rollFor(st.id);
+      g.contracts.rollFor(st.id, g.train);
     }
     const list = g.contracts.board(st.id);
     if (!list.length) left.appendChild(h('div', { class: 'empty', text: 'No work posted right now. Check back in an hour.' }));
@@ -129,7 +129,7 @@ export class Panels {
             const taken = g.contracts.accept(c.id, { stationId: st.id, train: g.train });
             if (taken) this.renderStation();
           }, 'btn primary'),
-          button('Decline', () => { g.contracts.decline(c.id, st.id); g.contracts.rollFor(st.id); this.renderStation(); }, 'btn ghost'),
+          button('Decline', () => { g.contracts.decline(c.id, st.id); g.contracts.rollFor(st.id, g.train); this.renderStation(); }, 'btn ghost'),
         ]),
       ]);
       left.appendChild(card);

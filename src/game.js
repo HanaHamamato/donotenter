@@ -536,7 +536,7 @@ export function createGame(opts = {}) {
 
       game.ai.update(dt, train);
       game.stations.update(dt, train, game.stock);
-      game.contracts.update(dt, game.stations.current?.id);
+      game.contracts.update(dt, game.stations.current?.id, game.train);
       game.passengers.update(dt, (dt / 60) * game.economy.timeScale);
       game.tutorial.update(dt);
       game.save.update(dt);

@@ -49,6 +49,7 @@ export class VegetationManager {
     this.assets = assets;
     this.terrain = terrain;
     this.cell = CELL;
+    this.shadowMode = 'trees';
     this.radius = opts.radius ?? VEGETATION_RADIUS;
     this.density = 1;
     this.group = new THREE.Group();
@@ -76,7 +77,9 @@ export class VegetationManager {
     const inst = new THREE.InstancedMesh(geo, mat, this.capacity);
     inst.count = 0;
     inst.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-    inst.castShadow = true;
+    // Shadows are opt-in per preset: with frustumCulled off, every live instance
+    // is drawn into the shadow map, so only the presets that can afford it do.
+    inst.castShadow = this.shadowMode === 'all' || (this.shadowMode === 'trees' && key.startsWith('tree_'));
     inst.receiveShadow = true;
     inst.frustumCulled = false;   // matrices are refilled wholesale
     inst.name = `veg_${key}`;
@@ -87,6 +90,14 @@ export class VegetationManager {
     const entry = { inst, key, fill: 0 };
     this.meshes.set(key, entry);
     return entry;
+  }
+
+  /** 'none' | 'trees' | 'all' — which props cast into the shadow map. */
+  setShadows(mode) {
+    this.shadowMode = mode === 'all' || mode === 'trees' ? mode : 'none';
+    for (const e of this.meshes.values()) {
+      e.inst.castShadow = this.shadowMode === 'all' || (this.shadowMode === 'trees' && e.key.startsWith('tree_'));
+    }
   }
 
   setDensity(d) {

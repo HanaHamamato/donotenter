@@ -262,7 +262,7 @@ export class HUD {
         setText(this.signalText, 'CLEAR');
         setText(this.signalDist, '');
       }
-      const look = train.lookAhead(9000);
+      const look = train.lookAhead(6000);
       let station = null;
       let junction = null;
       for (const f of look) {

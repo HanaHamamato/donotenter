@@ -44,8 +44,10 @@ export class Panels {
     this.current = id;
     setClass(this.overlay, 'hidden', false);
     for (const [key, sheet] of this.sheets) setClass(sheet, 'hidden', key !== id);
-    // Release the mouse but keep the keyboard live: Escape has to close this.
+    // Release the mouse but keep the keyboard live: Escape has to close this,
+    // even when the sheet was opened from the title screen.
     this.game.input?.releaseLock?.();
+    this.game.input?.setEnabled?.(true);
     bus.emit('ui:panel', { id, open: true, arg });
     this.render(id);
     return id;

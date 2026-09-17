@@ -54,6 +54,7 @@ export class WorldStreamer {
     this.track.setQuality(preset);
     this.vegetation.setDensity(p.vegetation);
     this.vegetation.setRadius(preset === 'low' ? 700 : preset === 'high' ? VEGETATION_RADIUS : 1200);
+    this.vegetation.setShadows(preset === 'high' ? 'all' : preset === 'medium' ? 'trees' : 'none');
     this.terrain.timeBudget = preset === 'low' ? 3 : preset === 'high' ? 6 : 4.5;
     if (this.renderer) {
       this.renderer.shadowMap.enabled = !!p.shadows;

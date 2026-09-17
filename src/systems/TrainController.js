@@ -219,8 +219,14 @@ export class TrainController {
   }
 
   setBrake(value) {
+    const before = this.controls.brake;
     this.controls.brake = clamp(value, 0, 1);
     if (value > 0.02) this.controls.emergency = false;
+    // One edge per application, not 60 events a second: the tutorial's "make a
+    // stop" step and any brake audio want the moment the driver commits.
+    if (before < 0.05 && this.controls.brake >= 0.05) {
+      this.bus.emit('train:brakeApplied', { train: this, brake: this.controls.brake });
+    }
   }
 
   brakeStep(delta) { this.setBrake(this.controls.brake + delta); }

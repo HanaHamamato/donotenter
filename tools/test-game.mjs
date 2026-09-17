@@ -454,6 +454,18 @@ section('tutorial');
   train.speed = 30 / 3.6;
   game.tutorial.update(1 / 60);
   ok(game.tutorial.index === step0 + 2, 'and the next when you reach 25 km/h');
+
+  // The air-brake lesson needs flags.braked, which is set by train:brakeApplied —
+  // an event nothing used to emit, so the step could never be completed.
+  train.setBrake(0);                 // released first: the event is a rising edge
+  train.setBrake(0.6);
+  ok(game.tutorial.flags.braked === true, 'applying the brake is seen by the tutorial');
+  train.speed = 8 / 3.6;
+  game.tutorial.update(1 / 60);
+  ok(game.tutorial.index === step0 + 3, 'the air brake lesson completes on a real stop',
+    game.tutorial.step?.id || 'finished');
+  train.setBrake(0);
+
   game.tutorial.skip();
   ok(game.tutorial.finished || !game.tutorial.enabled, 'the tutorial can be skipped');
   train.controls.throttle = 0;

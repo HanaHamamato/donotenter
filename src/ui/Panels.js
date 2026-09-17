@@ -61,6 +61,7 @@ export class Panels {
     for (const sheet of this.sheets.values()) setClass(sheet, 'hidden', true);
     if (this.game.focusWorld) this.game.focusWorld();
     bus.emit('ui:panel', { id, open: false });
+    bus.emit('ui:back', { id });
   }
 
   toggle(id) { this.current === id ? this.close() : this.open(id); }

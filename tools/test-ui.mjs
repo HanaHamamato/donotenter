@@ -273,6 +273,15 @@ if (invToggle) {
 }
 game.panels.close();
 
+// closing a panel must reach the audio mixer, which listens for ui:back
+let backs = 0;
+const onBack = () => { backs++; };
+bus.on('ui:back', onBack);
+game.panels.open('map');
+game.panels.close();
+bus.off('ui:back', onBack);
+ok(backs === 1, 'closing a panel announces itself to the audio', `${backs} ui:back event(s)`);
+
 // the controls sheet must document every key that actually does something
 game.panels.open('help');
 const helpText = game.panels.sheets.get('help').textContent;

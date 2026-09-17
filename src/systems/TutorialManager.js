@@ -31,7 +31,7 @@ export const TUTORIAL_STEPS = [
   {
     id: 'camera', title: 'Look around',
     text: 'Press C to change camera. Try the cab view and look out of the window.',
-    hint: 'C — cycle camera · 1-4 — direct select',
+    hint: 'C — cycle camera · 1-5 — direct select',
     check: (c) => c.flags.cameraChanged,
   },
   {

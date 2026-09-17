@@ -159,5 +159,23 @@ console.log('\n[5] safety systems');
   ok(t.speed > 1, 'the train drives away after re-railing');
 }
 
+console.log('\n[6] brake application event');
+{
+  const t = buildTrain('gp7', ['boxcar'], 'ironvale');
+  let events = 0;
+  const onBrake = () => { events++; };
+  t.bus.on('train:brakeApplied', onBrake);
+  t.setBrake(0);
+  for (let i = 0; i < 60; i++) t.setBrake(0.6);       // a held application, one second
+  ok(events === 1, 'applying the brake announces itself exactly once', `${events} event(s)`);
+  t.setBrake(0);
+  t.setBrake(0.02);                                    // below the threshold: no event
+  ok(events === 1, 'a breath on the brake does not count', `${events} event(s)`);
+  t.setBrake(0);
+  t.setBrake(0.35);
+  ok(events === 2, 'the next application does', `${events} event(s)`);
+  t.bus.off('train:brakeApplied', onBrake);
+}
+
 console.log(`\n${fails ? `✗ ${fails} check(s) failed` : '✓ rolling stock + train physics OK'}`);
 process.exit(fails ? 1 : 0);

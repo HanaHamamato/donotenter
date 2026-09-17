@@ -236,6 +236,27 @@ ok(true, 'a toggle can be flipped without throwing');
 sliders[0].value = '3000';
 sliders[0].dispatchEvent(new dom.window.Event('input', { bubbles: true }));
 ok(game.settings.drawDistance === 3000, 'the draw distance slider writes through', String(game.settings.drawDistance));
+// sliders that only poke a system are lost on reload — they must land in settings too
+sliders[3].value = '0.4';
+sliders[3].dispatchEvent(new dom.window.Event('input', { bubbles: true }));
+ok(game.settings.volumes.master === 0.4, 'the master volume slider persists', String(game.settings.volumes.master));
+ok(game.audio.volumes.master === 0.4, 'and reaches the mixer', String(game.audio.volumes.master));
+sliders[10].value = '5';
+sliders[10].dispatchEvent(new dom.window.Event('input', { bubbles: true }));
+ok(game.settings.aiTraffic === 5 && game.ai.target === 5, 'the AI traffic slider persists and applies',
+  `settings ${game.settings.aiTraffic}, roster ${game.ai.target}`);
+sliders[10].value = '0';
+sliders[10].dispatchEvent(new dom.window.Event('input', { bubbles: true }));
+const invToggle = [...game.panels.sheets.get('settings').querySelectorAll('.togglerow')]
+  .find((t) => /invert look y/i.test(t.textContent));
+ok(!!invToggle, 'there is an invert-look toggle');
+if (invToggle) {
+  click(invToggle);
+  ok(game.settings.invertY === true && game.cameraCtl.invertY === true,
+    'inverting look Y reaches the camera rig', `settings ${game.settings.invertY}, rig ${game.cameraCtl.invertY}`);
+  click(invToggle);
+  ok(game.settings.invertY === false && game.cameraCtl.invertY === false, 'and back again');
+}
 const wxBtns = [...game.panels.sheets.get('settings').querySelectorAll('button')].filter((b) => ['clear', 'rain', 'snow', 'fog', 'storm', 'cloudy'].includes(b.textContent));
 ok(wxBtns.length === 6, 'weather can be forced from settings');
 click(wxBtns.find((b) => b.textContent === 'rain'));

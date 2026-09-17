@@ -96,7 +96,7 @@ export function createGame(opts = {}) {
   });
   game.notifs = opts.notifs || new NotificationManager();
   game.cameraCtl = opts.cameraCtl || new CameraManager(camera, net, {
-    terrain: game.terrain, sensitivity: game.settings.sensitivity,
+    terrain: game.terrain, sensitivity: game.settings.sensitivity, invertY: game.settings.invertY,
   });
   game.cameraCtl.ensureCabDesk(assets);
   game.vehicleGroup = new THREE.Group();
@@ -303,6 +303,7 @@ export function createGame(opts = {}) {
       if (game.postFX.bloom) game.postFX.bloom.enabled = s.bloom;
     }
     game.cameraCtl.sensitivity = s.sensitivity;
+    game.cameraCtl.invertY = s.invertY;
     for (const [k, v] of Object.entries(s.volumes || {})) game.audio?.setVolume?.(k, v);
     game.ai?.setCount?.(s.aiTraffic);
     if (game.tutorial) game.tutorial.enabled = s.tutorial;

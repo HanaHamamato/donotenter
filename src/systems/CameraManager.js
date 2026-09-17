@@ -61,6 +61,8 @@ export class CameraManager {
     this.fov = RENDER.fov;
     this.dolly = 1;
     this.sensitivity = opts.sensitivity ?? 1;
+    /** Flip vertical look (setting: "Invert look Y"). Applied to every mode. */
+    this.invertY = !!opts.invertY;
     this.cabDesk = null;
     this._rough = 0;
   }
@@ -102,6 +104,7 @@ export class CameraManager {
     const cam = this.camera;
     const mouse = input?.takeMouse?.() || { dx: 0, dy: 0, dragX: 0, dragY: 0, wheel: 0, left: false };
     const look = { dx: (mouse.dx || 0) + (mouse.dragX || 0), dy: (mouse.dy || 0) + (mouse.dragY || 0) };
+    if (this.invertY) look.dy = -look.dy;   // one place, so cab/orbit/free all agree
 
     // ---- speed feel
     const kmh = train ? train.kmh : 0;

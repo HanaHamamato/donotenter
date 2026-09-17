@@ -570,16 +570,21 @@ export class Panels {
     body.appendChild(gfx);
 
     const audio = h('section', { class: 'col' }, [h('h3', { text: 'Audio' })]);
+    if (!s.volumes) s.volumes = { master: 0.85, engine: 0.9, effects: 0.85, ambient: 0.7, ui: 0.7 };
     for (const k of ['master', 'engine', 'effects', 'ambient', 'ui']) {
-      audio.appendChild(this._slider(k[0].toUpperCase() + k.slice(1), g.audio.volumes[k], 0, 1, 0.05, '', (v) => { g.audio.setVolume(k, v); }));
+      // write through to settings as well as the mixer, or the level is lost on reload
+      audio.appendChild(this._slider(k[0].toUpperCase() + k.slice(1), g.audio?.volumes?.[k] ?? s.volumes[k], 0, 1, 0.05, '', (v) => {
+        s.volumes[k] = v;
+        g.audio?.setVolume(k, v);
+      }));
     }
     audio.appendChild(h('h3', { text: 'Controls' }));
     audio.appendChild(this._slider('Mouse sensitivity', s.sensitivity, 0.3, 2.5, 0.05, '×', (v) => { s.sensitivity = v; g.cameraCtl.sensitivity = v; }));
-    audio.appendChild(this._toggle('Invert look Y', s.invertY, (v) => { s.invertY = v; }));
+    audio.appendChild(this._toggle('Invert look Y', s.invertY, (v) => { s.invertY = v; if (g.cameraCtl) g.cameraCtl.invertY = v; }));
     audio.appendChild(h('h3', { text: 'Simulation' }));
     audio.appendChild(this._slider('Time scale', g.economy.timeScale, 1, 24, 1, '×', (v) => { g.economy.timeScale = v; }));
     audio.appendChild(this._toggle('Tutorial', g.settings.tutorial, (v) => { g.settings.tutorial = v; g.tutorial.enabled = v; if (!v) g.tutorial.skip(); }));
-    audio.appendChild(this._slider('AI traffic', g.ai.target, 0, 6, 1, ' trains', (v) => { g.ai.setCount(v); }));
+    audio.appendChild(this._slider('AI traffic', g.ai.target, 0, 6, 1, ' trains', (v) => { s.aiTraffic = v; g.ai.setCount(v); }));
     const wx = h('div', { class: 'row' }, [h('span', { class: 'k', text: 'Force weather' })]);
     const wxbtns = h('span', { class: 'v segs wrap' });
     for (const id of ['clear', 'cloudy', 'rain', 'storm', 'fog', 'snow']) {

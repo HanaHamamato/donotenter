@@ -217,6 +217,30 @@ if (game.ai.trains.length) {
   ok(typeof game.ai.blips()[0].kmh === 'number', 'AI blips are available for the map');
 }
 
+/* --------------------------------------------------------------- camera */
+section('camera');
+{
+  const lookInput = (dy) => ({
+    takeMouse: () => ({ dx: 0, dy, dragX: 0, dragY: 0, wheel: 0, left: false }),
+    keyDown: () => false,
+  });
+  const modeBefore = game.cameraCtl.mode;
+  game.cameraCtl.setMode('cab', true);
+  game.cameraCtl.invertY = false;
+  game.cameraCtl.pitch = 0;
+  game.cameraCtl.update(1 / 60, game.train, lookInput(240));
+  const normal = game.cameraCtl.pitch;
+  game.cameraCtl.invertY = true;
+  game.cameraCtl.pitch = 0;
+  game.cameraCtl.update(1 / 60, game.train, lookInput(240));
+  const inverted = game.cameraCtl.pitch;
+  ok(Math.abs(normal) > 1e-4, 'vertical look moves the cab camera', normal.toFixed(4));
+  ok(Math.sign(normal) === -Math.sign(inverted) && Math.abs(Math.abs(normal) - Math.abs(inverted)) < 1e-9,
+    'invert look Y flips it, same magnitude', `${normal.toFixed(4)} → ${inverted.toFixed(4)}`);
+  game.cameraCtl.invertY = false;
+  game.cameraCtl.setMode(modeBefore, true);
+}
+
 /* ------------------------------------------------- the world keeps moving */
 section('living world');
 {

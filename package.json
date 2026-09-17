@@ -1,0 +1,22 @@
+{
+  "name": "ironbound",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "IRONBOUND \u2014 an open-world train simulator built with Three.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "gen:world": "node tools/gen-world.mjs",
+    "test": "node tools/test-sim.mjs && node tools/test-train.mjs && node tools/test-assets.mjs && node tools/test-render.mjs && node tools/test-terrain.mjs && node tools/test-game.mjs && node tools/test-ui.mjs",
+    "test:quick": "node tools/test-train.mjs && node tools/test-game.mjs && node tools/test-ui.mjs"
+  },
+  "dependencies": {
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "jsdom": "^30.1.0",
+    "vite": "^7.1.9"
+  }
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>IRONBOUND — The Iron Reaches</title>
+  <meta name="description" content="An open-world train simulator: sixteen kilometres of mountain, mill and coast, one train, one contract at a time." />
+  <meta name="theme-color" content="#0d1216" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230d1216'/%3E%3Cpath d='M6 22h20M8 26h4M20 26h4' stroke='%23c8b98a' stroke-width='2'/%3E%3Crect x='9' y='6' width='14' height='14' rx='2' fill='%23e0a33c'/%3E%3Crect x='12' y='9' width='8' height='4' fill='%230d1216'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="scene"></canvas>
+    <div id="ui"></div>
+
+    <div id="boot">
+      <div class="bootbox">
+        <div class="eyebrow">AN OPEN-WORLD RAILWAY</div>
+        <h1 class="bootlogo">IRONBOUND</h1>
+        <div class="bootrail"><i id="bootbar"></i></div>
+        <div id="boottext">Starting…</div>
+        <div class="boothint">Procedural terrain · 56.8 km of spline track · twelve stations · no asset files</div>
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    <div style="color:#e8e2d4;background:#0d1216;padding:24px;font-family:monospace">
+      IRONBOUND needs JavaScript and WebGL 2.
+    </div>
+  </noscript>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

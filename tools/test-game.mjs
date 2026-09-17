@@ -123,6 +123,40 @@ if (loose) {
   ok(off.length === 1, 'and can be uncoupled again');
 }
 
+/* ------------------------------------------------------------- uncoupling */
+section('uncoupling');
+{
+  const n0 = train.vehicles.length;
+  ok(n0 > 1, 'there is something to uncouple', `${n0} vehicles`);
+  train.speed = 0;
+  train.controls.throttle = 0;
+  const off = game.uncouple(n0 - 2);
+  ok(off.length === 1, 'the last car is left standing on the rails', `${off.length} car(s)`);
+  ok(train.vehicles.length === n0 - 1, 'and the consist is one shorter', `${n0} → ${train.vehicles.length}`);
+  ok(game.dropped.has(off[0]), 'the drop is logged against the odometer');
+
+  // The dropped car is parked exactly where the coupling probe looks. Without
+  // the lockout it re-couples in the same frame, so uncoupling at a standstill
+  // (the only speed you may uncouple at) would silently do nothing.
+  for (let i = 0; i < 120; i++) game.update(1 / 60);
+  ok(train.vehicles.length === n0 - 1, 'it does not snap straight back on',
+    `${train.vehicles.length} cars after 2 s standing still`);
+
+  // Clear the lockout and the very same car couples again — proving the
+  // lockout, and not the probe, is what kept it away.
+  game.dropped.clear();
+  const nose = net.cloneState(train.state);
+  net.advance(nose, 5.0);
+  game.stock.park(off[0], nose);
+  train.moving = 1;
+  train.speed = 0.4;
+  game.coupleCheck();
+  ok(train.vehicles.length === n0, 'once the train has moved clear it couples again',
+    `${train.vehicles.length} cars`);
+  train.speed = 0;
+  train.moving = 0;
+}
+
 /* --------------------------------------------------------------- contracts */
 section('contracts');
 const millford = net.nodeById('millford');
@@ -238,6 +272,19 @@ section('camera');
   ok(Math.sign(normal) === -Math.sign(inverted) && Math.abs(Math.abs(normal) - Math.abs(inverted)) < 1e-9,
     'invert look Y flips it, same magnitude', `${normal.toFixed(4)} → ${inverted.toFixed(4)}`);
   game.cameraCtl.invertY = false;
+
+  // V held: the cab view stays where the driver left it instead of springing forward
+  const idle = { takeMouse: () => ({ dx: 0, dy: 0, dragX: 0, dragY: 0, wheel: 0, left: false }), keyDown: () => false };
+  game.cameraCtl.yaw = 0.4; game.cameraCtl.pitch = 0.3;
+  game.cameraCtl.update(1 / 60, game.train, idle, { freeLook: true });
+  const held = game.cameraCtl.pitch;
+  for (let i = 0; i < 60; i++) game.cameraCtl.update(1 / 60, game.train, idle, { freeLook: true });
+  ok(Math.abs(game.cameraCtl.pitch - held) < 1e-9 && Math.abs(game.cameraCtl.yaw - 0.4) < 1e-9,
+    'holding free look keeps the cab view where you left it', `yaw ${game.cameraCtl.yaw.toFixed(3)}, pitch ${game.cameraCtl.pitch.toFixed(3)}`);
+  for (let i = 0; i < 120; i++) game.cameraCtl.update(1 / 60, game.train, idle, { freeLook: false });
+  ok(Math.abs(game.cameraCtl.pitch) < Math.abs(held) && Math.abs(game.cameraCtl.yaw) < 0.4,
+    'releasing it springs back to forward', `yaw ${game.cameraCtl.yaw.toFixed(3)}, pitch ${game.cameraCtl.pitch.toFixed(3)}`);
+
   game.cameraCtl.setMode(modeBefore, true);
 }
 

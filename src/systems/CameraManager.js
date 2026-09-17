@@ -63,6 +63,8 @@ export class CameraManager {
     this.sensitivity = opts.sensitivity ?? 1;
     /** Flip vertical look (setting: "Invert look Y"). Applied to every mode. */
     this.invertY = !!opts.invertY;
+    /** True while the free-look key is held: cab look stops springing forward. */
+    this.holdLook = false;
     this.cabDesk = null;
     this._rough = 0;
   }
@@ -120,6 +122,9 @@ export class CameraManager {
     const ox = Math.sin(this.shake.t * 2.1) * s + Math.sin(this.shake.t * 5.7) * s * 0.4;
     const oy = Math.sin(this.shake.t * 1.7 + 1.2) * s * 0.8 + Math.sin(this.shake.t * 6.3) * s * 0.3;
     const oroll = Math.sin(this.shake.t * 1.3) * s * 0.5;
+
+    // V held: the driver is looking around, so the cab view must not spring back
+    this.holdLook = !!opts.freeLook;
 
     let placed = false;
     if (train && !train.empty) {
@@ -180,8 +185,8 @@ export class CameraManager {
 
     this.yaw = clamp(this.yaw - look.dx * 0.0022 * this.sensitivity, -1.25, 1.25);
     this.pitch = clamp(this.pitch - look.dy * 0.0022 * this.sensitivity, -0.75, 0.62);
-    // spring back to forward when the mouse is idle
-    if (!look.dx && !look.dy) {
+    // spring back to forward when the mouse is idle (unless V is held)
+    if (!look.dx && !look.dy && !this.holdLook) {
       this.yaw = damp(this.yaw, 0, 1.1, dt);
       this.pitch = damp(this.pitch, 0, 1.1, dt);
     }

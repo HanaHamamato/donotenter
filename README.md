@@ -61,12 +61,16 @@ code plus three.js.
 | `Q` | uncouple everything behind the locomotive (`Shift+Q`: last car only) |
 | `G` | re-rail after a derailment (costs credits) |
 | `C` / `1`–`5` | camera: chase, cab, orbit, trackside, free fly |
+| `V` | hold to look around the cab — the view stops springing forward |
 | `M` map · `J` career · `U` depot & upgrades · `T` consist · `P` photo mode · `F3` debug |
 | `Esc` pause menu · `F5` quick save · `F9` quick load |
 
 The mouse only steers the camera (pointer lock; drag in orbit view, wheel to
 dolly). Coupling is physical: drive gently — under 6 km/h — into a standing car
-and it joins your consist.
+and it joins your consist. Uncoupling is deliberate: a car you drop stays
+dropped until you have pulled about nine metres clear of it, so it can never snap
+back onto the coupler while you are standing still. Back onto it again to
+re-couple.
 
 ---
 

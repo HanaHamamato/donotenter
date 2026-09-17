@@ -55,6 +55,8 @@ export const PHYS = {
 
   minSpeedForPower: 0.6, // m/s — below this, TE is clamped (avoids div-by-zero)
   coupleMaxSpeed: 1.6, // m/s (~5.7 km/h) — GDD §1.1 coupling rule
+  recoupleMetres: 9,   // a car you have just dropped will not snap back onto the
+                       // coupler until the train has travelled this far away
   coupleReach: 6.0, // metres
   derailSpeedFactor: 1.28, // v > limit * factor → derailment
   derailCurveFactor: 1.55, // unbalanced lateral accel tolerance

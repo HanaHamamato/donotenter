@@ -173,6 +173,20 @@ key('KeyF'); game.update(1 / 60); key('KeyF', 'keyup');
 ok(typeof game.train.headlights === 'boolean', 'F toggles the headlights', String(game.train.headlights));
 key('Tab'); game.update(1 / 60); key('Tab', 'keyup');
 ok(true, 'Tab cycles the points ahead without throwing');
+
+// chords: Shift+Q is its own action and must mute the plain Q binding, or one
+// keystroke would drop the last car and everything behind the locomotive
+key('ShiftLeft'); key('KeyQ');
+ok(input.pressed('decoupleLast'), 'Shift+Q reports as its own chord action');
+ok(!input.pressed('decouple'), 'and mutes the plain key it modifies');
+ok(input.down('decoupleLast'), 'the chord stays down while both keys are held');
+const carsBeforeChord = game.train.vehicles.length;
+game.train.speed = 0;          // uncoupling is refused above walking pace
+game.update(1 / 60);
+ok(game.train.vehicles.length === Math.max(1, carsBeforeChord - 1),
+  'Shift+Q uncouples one car only', `${carsBeforeChord} → ${game.train.vehicles.length}`);
+key('KeyQ', 'keyup'); key('ShiftLeft', 'keyup');
+ok(!input.down('decoupleLast'), 'and releases with the modifier');
 key('F3'); game.update(1 / 60); key('F3', 'keyup');
 ok(game.hud.debug === true, 'F3 opens the debug overlay');
 key('F3'); game.update(1 / 60); key('F3', 'keyup');
@@ -257,6 +271,17 @@ if (invToggle) {
   click(invToggle);
   ok(game.settings.invertY === false && game.cameraCtl.invertY === false, 'and back again');
 }
+game.panels.close();
+
+// the controls sheet must document every key that actually does something
+game.panels.open('help');
+const helpText = game.panels.sheets.get('help').textContent;
+for (const [key, what] of [['T', 'consist'], ['V', 'look around the cab'], ['1-5', 'free']]) {
+  ok(helpText.includes(key) && helpText.toLowerCase().includes(what.toLowerCase()),
+    `the help sheet documents ${key} (${what})`);
+}
+game.panels.close();
+game.panels.open('settings');
 const wxBtns = [...game.panels.sheets.get('settings').querySelectorAll('button')].filter((b) => ['clear', 'rain', 'snow', 'fog', 'storm', 'cloudy'].includes(b.textContent));
 ok(wxBtns.length === 6, 'weather can be forced from settings');
 click(wxBtns.find((b) => b.textContent === 'rain'));

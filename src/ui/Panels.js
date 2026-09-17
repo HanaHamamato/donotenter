@@ -232,9 +232,11 @@ export class Panels {
         h('span', { class: 'ccond', text: v.isLoco ? '' : `${Math.round(v.condition)}%` }),
         h('span', { class: 'cmass', text: `${(v.mass / 1000).toFixed(0)} t` }),
       ]);
-      if (!v.isLoco && i < train.vehicles.length) {
+      if (!v.isLoco) {
         row.appendChild(button('Uncouple here', () => {
-          const off = train.decouple(i, g.stock);
+          // decouple() cuts *behind* the index given, so to let go of this car
+          // (and anything behind it) the cut has to be the one before it
+          const off = g.uncouple(i - 1);
           if (off?.length) {
             bus.emit('notify', { kind: 'info', text: `${off.length} car(s) left on the rails.` });
             this.renderConsist();
@@ -630,7 +632,7 @@ export class Panels {
     ]));
     const groups = {
       'Driving': [['W / ↑', 'throttle up'], ['S / ↓', 'throttle down'], ['Space', 'air brake (hold)'], ['B', 'emergency brake'], ['R', 'reverser forward / back / neutral'], ['X', 'dynamic brake'], ['Z', 'sanders'], ['H', 'horn'], ['L', 'bell'], ['F', 'headlights']],
-      'Working': [['Tab', 'cycle the route at the junction ahead'], ['E', 'station board / interact'], ['Q', 'uncouple everything behind the locomotive'], ['Shift + Q', 'uncouple the last car only'], ['C', 'cycle camera'], ['1-4', 'camera: chase / cab / orbit / trackside'], ['P', 'photo mode'], ['M', 'map'], ['J', 'career'], ['U', 'depot & upgrades'], ['F3', 'debug overlay']],
+      'Working': [['Tab', 'cycle the route at the junction ahead'], ['E', 'station board / interact'], ['Q', 'uncouple everything behind the locomotive'], ['Shift + Q', 'uncouple the last car only'], ['T', 'consist — what you are hauling'], ['C', 'cycle camera'], ['1-5', 'camera: chase / cab / orbit / trackside / free'], ['V', 'hold to look around the cab'], ['P', 'photo mode'], ['M', 'map'], ['J', 'career'], ['U', 'depot & upgrades'], ['F3', 'debug overlay']],
       'System': [['Esc', 'pause menu / close panel'], ['F5', 'quick save'], ['F9', 'quick load']],
     };
     const body = h('div', { class: 'sheet-body cols' });

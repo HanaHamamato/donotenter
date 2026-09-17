@@ -70,6 +70,8 @@ export function createGame(opts = {}) {
     fps: 60,
     deliveryTimer: 0,
     coupleTarget: null,
+    /** vehicle → train odometer when it was uncoupled (see coupleCheck) */
+    dropped: new Map(),
     input: opts.input || null,
     hud: opts.hud || null,
     panels: opts.panels || null,
@@ -385,11 +387,14 @@ export function createGame(opts = {}) {
     }
 
     if (input.pressed('junction')) game.cycleJunction();
-    if (input.pressed('decouple')) {
-      const last = input.keyDown?.('ShiftLeft');
-      const idx = last ? train.vehicles.length - 2 : 0;
-      if (train.vehicles.length > 1 && idx >= 0) train.decouple(idx, game.stock);
-      else bus.emit('notify', { kind: 'info', text: 'Nothing to uncouple.', ttl: 2.4 });
+    // Q drops everything behind the locomotive; Shift+Q drops the last car only
+    const nothing = () => bus.emit('notify', { kind: 'info', text: 'Nothing to uncouple.', ttl: 2.4 });
+    if (input.pressed('decoupleLast') || (input.pressed('decouple') && input.keyDown?.('ShiftLeft'))) {
+      if (train.vehicles.length > 1) game.uncouple(train.vehicles.length - 2);
+      else nothing();
+    } else if (input.pressed('decouple')) {
+      if (train.vehicles.length > 1) game.uncouple(0);
+      else nothing();
     }
 
     if (input.pressed('camera')) game.cameraCtl.cycle(1);
@@ -433,6 +438,20 @@ export function createGame(opts = {}) {
   const _probe = new THREE.Vector3();
   const _ahead = new THREE.Vector3();
 
+  /**
+   * Uncouple everything behind `index`. The dropped cars are logged against the
+   * train's odometer so coupleCheck() will not snap them straight back on — see
+   * PHYS.recoupleMetres. Every uncouple path (keys, consist sheet) goes here.
+   * @returns {object[]} the vehicles left standing on the rails
+   */
+  game.uncouple = (index) => {
+    const train = game.train;
+    if (!train) return [];
+    const off = train.decouple(index, game.stock) || [];
+    for (const v of off) game.dropped.set(v, train.pathOdo);
+    return off;
+  };
+
   game.coupleCheck = () => {
     const train = game.train;
     if (!train?.state || train.empty || train.derail) return null;
@@ -456,6 +475,16 @@ export function createGame(opts = {}) {
     }
 
     if (!found) { game.coupleTarget = null; return null; }
+
+    // A car the player has just uncoupled is standing exactly where the probe
+    // looks, so without this it would re-couple in the same frame and dropping
+    // a car anywhere would be impossible. It becomes a candidate again once the
+    // train has travelled clear of it — pull away, then back on deliberately.
+    const droppedAt = game.dropped.get(found.vehicle);
+    if (droppedAt != null && Math.abs(train.pathOdo - droppedAt) < PHYS.recoupleMetres) {
+      game.coupleTarget = null;
+      return null;
+    }
     game.coupleTarget = found;
     const v = found.vehicle;
     v.state.dir = forward ? train.state.dir : -train.state.dir;
@@ -534,6 +563,12 @@ export function createGame(opts = {}) {
       train.step(dt);
       train.placeCars();
       game.coupleCheck();
+      // forget dropped cars once they are re-coupled or the train is well clear
+      if (game.dropped.size) {
+        for (const [v, odo] of game.dropped) {
+          if (v.train || Math.abs(train.pathOdo - odo) > 120) game.dropped.delete(v);
+        }
+      }
 
       game.ai.update(dt, train);
       game.stations.update(dt, train, game.stock);
@@ -560,7 +595,10 @@ export function createGame(opts = {}) {
     // menus own the mouse: drain it so the camera does not snap when they close
     const menuOpen = !!game.panels?.isOpen?.() || !!game.title?.visible;
     if (menuOpen) game.input?.takeMouse?.();
-    game.cameraCtl.update(dt, train, menuOpen ? null : game.input, { tunnel: game.tunnel });
+    game.cameraCtl.update(dt, train, menuOpen ? null : game.input, {
+      tunnel: game.tunnel,
+      freeLook: !menuOpen && !!game.input?.down?.('freeLook'),
+    });
 
     if (game.audio?.ready) {
       game.audio.update(dt, train, {

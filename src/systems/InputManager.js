@@ -9,15 +9,29 @@
 import { KEYBINDS } from '../constants.js';
 import { bus } from '../utils/events.js';
 
-const CODE_TO_ACTION = (() => {
+/**
+ * KEYBINDS entries may be a chord ("ShiftLeft+KeyQ"). Chords are kept apart from
+ * single codes so that a modifier combination can fire its own action *instead
+ * of* the plain key's — otherwise Shift+Q would uncouple the whole train and the
+ * last car at once.
+ */
+const { CODE_TO_ACTION, CHORDS } = (() => {
   const map = new Map();
+  const chords = [];
   for (const [action, codes] of Object.entries(KEYBINDS)) {
-    for (const code of codes) {
+    for (const entry of codes) {
+      const parts = String(entry).split('+').map((c) => c.trim()).filter(Boolean);
+      if (parts.length > 1) {
+        chords.push({ action, codes: parts, main: parts[parts.length - 1] });
+        continue;
+      }
+      const code = parts[0];
+      if (!code) continue;
       if (!map.has(code)) map.set(code, []);
       map.get(code).push(action);
     }
   }
-  return map;
+  return { CODE_TO_ACTION: map, CHORDS: chords };
 })();
 
 export class InputManager {
@@ -64,20 +78,32 @@ export class InputManager {
   _key(e, isDown) {
     if (isDown) this.raw_.add(e.code); else this.raw_.delete(e.code);
     if (this._isTyping() && e.code !== 'Escape') return;
-    const actions = CODE_TO_ACTION.get(e.code);
-    if (!actions) return;
-    if (e.code === 'Tab' || actions.includes('junction')) e.preventDefault();
-    if (e.code.startsWith('Arrow') || e.code === 'Space') e.preventDefault();
-    for (const a of actions) {
+    if (e.code === 'Tab' || e.code.startsWith('Arrow') || e.code === 'Space') e.preventDefault();
+
+    const mark = (action) => {
       if (isDown) {
-        if (!e.repeat && !this.down_.has(a)) this.pressed_.add(a);
-        if (!e.repeat) this.down_.add(a);
+        if (!e.repeat && !this.down_.has(action)) this.pressed_.add(action);
+        if (!e.repeat) this.down_.add(action);
       } else {
-        this.down_.delete(a);
-        this.released_.add(a);
+        this.down_.delete(action);
+        this.released_.add(action);
       }
+    };
+
+    // chords: complete while every member is held, and they mute the plain key
+    const complete = CHORDS.filter((c) => c.codes.every((code) => this.raw_.has(code)));
+    for (const c of CHORDS) {
+      if (complete.includes(c)) mark(c.action);
+      else if (!isDown && this.down_.has(c.action)) { this.down_.delete(c.action); this.released_.add(c.action); }
     }
-    if (!e.repeat) bus.emit(isDown ? 'input:down' : 'input:up', { code: e.code, actions });
+    const muted = new Set();
+    for (const c of complete) for (const a of CODE_TO_ACTION.get(c.main) || []) muted.add(a);
+
+    const actions = (CODE_TO_ACTION.get(e.code) || []).filter((a) => !muted.has(a));
+    for (const a of actions) mark(a);
+    if (!e.repeat && (actions.length || complete.length)) {
+      bus.emit(isDown ? 'input:down' : 'input:up', { code: e.code, actions: [...actions, ...complete.map((c) => c.action)] });
+    }
   }
 
   _move(e) {
